@@ -87,40 +87,43 @@
   </div>
   <script>
     function calculateAffordability() {
-      const carPrice = parseFloat(document.getElementById('carPrice').value);
-      const federalCredit = parseFloat(document.getElementById('federalCredit').value);
-      const referralCredit = parseFloat(document.getElementById('referralCredit').value);
-      const destinationFee = parseFloat(document.getElementById('destinationFee').value);
-      const finalCost = carPrice + federalCredit + referralCredit + destinationFee;
-      document.getElementById('finalCost').innerText = finalCost.toFixed(2);
-      updateSummary();
-      return finalCost;
+        const carPrice = parseFloat(document.getElementById('carPrice').value);
+        const federalCredit = parseFloat(document.getElementById('federalCredit').value);
+        const referralCredit = parseFloat(document.getElementById('referralCredit').value);
+        const destinationFee = parseFloat(document.getElementById('destinationFee').value);
+        const finalCost = carPrice + federalCredit + referralCredit + destinationFee;
+        document.getElementById('finalCost').innerText = finalCost.toFixed(2);
+        return finalCost;
     }
 
     function calculateFuelSavings() {
-      const years = parseFloat(document.getElementById('years').value);
-      const milesPerYear = parseFloat(document.getElementById('milesPerYear').value);
-      const gasPrice = parseFloat(document.getElementById('gasPrice').value);
-      const mpg = parseFloat(document.getElementById('mpg').value);
-      const totalMiles = years * milesPerYear;
-      const totalGallons = totalMiles / mpg;
-      const totalCost = totalGallons * gasPrice;
-      document.getElementById('fuelSavings').innerText = totalCost.toFixed(2);
-      updateSummary();
-      return totalCost;
+        const years = parseFloat(document.getElementById('years').value);
+        const milesPerYear = parseFloat(document.getElementById('milesPerYear').value);
+        const gasPrice = parseFloat(document.getElementById('gasPrice').value);
+        const mpg = parseFloat(document.getElementById('mpg').value);
+        const totalMiles = years * milesPerYear;
+        const totalGallons = totalMiles / mpg;
+        const totalCost = totalGallons * gasPrice;
+        document.getElementById('fuelSavings').innerText = totalCost.toFixed(2);
+        return totalCost;
     }
 
     function updateSummary() {
-      const initialCost = calculateAffordability();
-      const initialFuelSavings = calculateFuelSavings();
-      const resultingCost = initialCost - initialFuelSavings;
-      document.getElementById('initialCost').innerText = initialCost.toFixed(2);
-      document.getElementById('initialFuelSavings').innerText = initialFuelSavings.toFixed(2);
-      document.getElementById('resultingCost').innerText = resultingCost.toFixed(2);
+        const initialCost = calculateAffordability();
+        const initialFuelSavings = calculateFuelSavings();
+        const resultingCost = initialCost - initialFuelSavings;
+        document.getElementById('initialCost').innerText = initialCost.toFixed(2);
+        document.getElementById('initialFuelSavings').innerText = initialFuelSavings.toFixed(2);
+        document.getElementById('resultingCost').innerText = resultingCost.toFixed(2);
     }
 
     window.onload = function() {
-      updateSummary();
+        updateSummary();
+        
+        const inputs = document.querySelectorAll('input');
+        for (let input of inputs) {
+            input.addEventListener('input', updateSummary);
+        }
     }
   </script>
 </body>
