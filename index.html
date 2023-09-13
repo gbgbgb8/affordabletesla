@@ -58,22 +58,13 @@
             padding: 15px;
             margin-top: 15px;
         }
-        .theme-toggle {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            cursor: pointer;
-            background: var(--on-bg);
-            color: var(--bg);
-            padding: 5px 10px;
-            border-radius: 5px;
-            border: none;
-            font-size: 14px;
+        .theme-switcher {
+            text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-<button class="theme-toggle" onclick="toggleTheme()">Switch to Light Mode</button>
 <div class="container">
     <h1>Tesla Affordability Calculator</h1>
     <form id="tesla-calculator">
@@ -136,6 +127,14 @@
         <p>Fuel Savings: <span id="initialFuelSavings">-</span></p>
         <p>Final Cost: <span id="resultingCost">-</span></p>
     </div>
+    <div class="theme-switcher">
+        <fieldset>
+            <label>
+                Dark Mode:
+                <input type="checkbox" role="switch" checked onchange="toggleTheme()">
+            </label>
+        </fieldset>
+    </div>
 </div>
 <script>
     function calculateTotal() {
@@ -169,10 +168,8 @@
         const theme = document.documentElement.getAttribute('data-theme');
         if (theme === 'dark') {
             document.documentElement.setAttribute('data-theme', 'light');
-            document.querySelector('.theme-toggle').innerText = "Switch to Dark Mode";
         } else {
             document.documentElement.setAttribute('data-theme', 'dark');
-            document.querySelector('.theme-toggle').innerText = "Switch to Light Mode";
         }
     }
 
