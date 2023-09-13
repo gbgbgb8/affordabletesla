@@ -14,16 +14,16 @@
             background-color: var(--bg);
             max-width: 600px;
             margin: auto;
-            padding: 30px;
+            padding: 20px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        h1, h2 {
+        h1 {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -49,8 +49,8 @@
         .summary {
             background-color: var(--surface);
             border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
+            padding: 15px;
+            margin-top: 15px;
         }
         .theme-toggle {
             position: fixed;
@@ -69,32 +69,11 @@
 <body>
 <button class="theme-toggle" onclick="toggleTheme()">Switch to Light Mode</button>
 <div class="container">
-    <h1>Tesla is Affordable!</h1>
+    <h1>Tesla Affordability Calculator</h1>
     <form id="tesla-calculator">
-        <h2>Calculate Tesla Price</h2>
         <div class="form-group">
             <label for="carPrice">Car Price:</label>
             <input type="number" id="carPrice" name="carPrice" value="40240">
-        </div>
-        <div class="form-group">
-            <label for="federalCredit">Federal Credit:</label>
-            <input type="number" id="federalCredit" name="federalCredit" value="-7500">
-        </div>
-        <div class="form-group">
-            <label for="referralCredit">Referral Credit:</label>
-            <input type="number" id="referralCredit" name="referralCredit" value="-500">
-        </div>
-        <div class="form-group">
-            <label for="destinationFee">Destination Fee:</label>
-            <input type="number" id="destinationFee" name="destinationFee" value="1390">
-        </div>
-        <button type="button" onclick="calculateAffordability()">Calculate</button>
-    </form>
-    <h2>Final Cost:</h2>
-    <p id="finalCost" style="text-align:center; font-weight:bold; font-size: 20px;">-</p>
-    <form id="fuel-savings-calculator">
-        <h2>Calculate Estimated Fuel Savings</h2>
-        <div class="form-group">
             <label for="years">Years:</label>
             <select id="years" name="years">
                 <option value="1">1</option>
@@ -107,29 +86,28 @@
                 <option value="8" selected>8</option>
                 <option value="9">9</option>
                 <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
             </select>
         </div>
         <div class="form-group">
+            <label for="federalCredit">Federal Credit:</label>
+            <input type="number" id="federalCredit" name="federalCredit" value="-7500">
             <label for="milesPerYear">Miles/Year:</label>
             <input type="number" id="milesPerYear" name="milesPerYear" value="15000">
         </div>
         <div class="form-group">
+            <label for="referralCredit">Ref. Credit:</label>
+            <input type="number" id="referralCredit" name="referralCredit" value="-500">
             <label for="gasPrice">Gas/Gallon:</label>
             <input type="number" id="gasPrice" name="gasPrice" value="5.29">
         </div>
         <div class="form-group">
+            <label for="destinationFee">Dest. Fee:</label>
+            <input type="number" id="destinationFee" name="destinationFee" value="1390">
             <label for="mpg">MPG:</label>
             <input type="number" id="mpg" name="mpg" value="25">
         </div>
-        <button type="button" onclick="calculateFuelSavings()">Calculate Fuel Savings</button>
+        <button type="button" onclick="calculateTotal()">Calculate</button>
     </form>
-    <h2>Fuel Savings:</h2>
-    <p id="fuelSavings" style="text-align:center; font-weight:bold; font-size: 20px;">-</p>
     <div class="summary">
         <h2>Quick Summary</h2>
         <p>Initial Cost: <span id="initialCost">-</span></p>
@@ -138,14 +116,21 @@
     </div>
 </div>
 <script>
+    function calculateTotal() {
+        const initialCost = calculateAffordability();
+        const initialFuelSavings = calculateFuelSavings();
+        const resultingCost = initialCost - initialFuelSavings;
+        document.getElementById('initialCost').innerText = "$" + initialCost.toFixed(2);
+        document.getElementById('initialFuelSavings').innerText = "$" + initialFuelSavings.toFixed(2);
+        document.getElementById('resultingCost').innerText = "$" + resultingCost.toFixed(2);
+    }
+
     function calculateAffordability() {
         const carPrice = parseFloat(document.getElementById('carPrice').value);
         const federalCredit = parseFloat(document.getElementById('federalCredit').value);
         const referralCredit = parseFloat(document.getElementById('referralCredit').value);
         const destinationFee = parseFloat(document.getElementById('destinationFee').value);
-        const finalCost = carPrice + federalCredit + referralCredit + destinationFee;
-        document.getElementById('finalCost').innerText = "$" + finalCost.toFixed(2);
-        return finalCost;
+        return carPrice + federalCredit + referralCredit + destinationFee;
     }
 
     function calculateFuelSavings() {
@@ -155,18 +140,7 @@
         const mpg = parseFloat(document.getElementById('mpg').value);
         const totalMiles = years * milesPerYear;
         const totalGallons = totalMiles / mpg;
-        const totalCost = totalGallons * gasPrice;
-        document.getElementById('fuelSavings').innerText = "$" + totalCost.toFixed(2);
-        return totalCost;
-    }
-
-    function updateSummary() {
-        const initialCost = calculateAffordability();
-        const initialFuelSavings = calculateFuelSavings();
-        const resultingCost = initialCost - initialFuelSavings;
-        document.getElementById('initialCost').innerText = "$" + initialCost.toFixed(2);
-        document.getElementById('initialFuelSavings').innerText = "$" + initialFuelSavings.toFixed(2);
-        document.getElementById('resultingCost').innerText = "$" + resultingCost.toFixed(2);
+        return totalGallons * gasPrice;
     }
 
     function toggleTheme() {
@@ -181,10 +155,10 @@
     }
 
     window.onload = function() {
-        updateSummary();
+        calculateTotal();
         const inputs = document.querySelectorAll('input, select');
         for (let input of inputs) {
-            input.addEventListener('input', updateSummary);
+            input.addEventListener('input', calculateTotal);
         }
     }
 </script>
