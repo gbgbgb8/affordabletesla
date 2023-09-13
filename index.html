@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <title>Tesla is Affordable!</title>
@@ -8,11 +8,10 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
             padding: 20px;
         }
         .container {
-            background-color: #ffffff;
+            background-color: var(--bg);
             max-width: 600px;
             margin: auto;
             padding: 30px;
@@ -37,32 +36,40 @@
             width: 100%;
             padding: 10px 20px;
             margin-top: 10px;
-            background-color: #007BFF;
-            color: #ffffff;
+            background-color: var(--primary);
+            color: var(--on-primary);
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: var(--primary-dark);
         }
         .summary {
-            background-color: #e9f8ff;
+            background-color: var(--surface);
             border-radius: 10px;
             padding: 20px;
             margin-top: 20px;
         }
-        .summary h2 {
-            margin-top: 0;
+        .theme-toggle {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            cursor: pointer;
+            background: var(--on-bg);
+            color: var(--bg);
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
+<button class="theme-toggle" onclick="toggleTheme()">Switch to Light Mode</button>
 <div class="container">
     <h1>Tesla is Affordable!</h1>
-    
-    <!-- Tesla Price Calculator -->
     <form id="tesla-calculator">
         <h2>Calculate Tesla Price</h2>
         <div class="form-group">
@@ -83,17 +90,13 @@
         </div>
         <button type="button" onclick="calculateAffordability()">Calculate</button>
     </form>
-    
     <h2>Final Cost:</h2>
     <p id="finalCost" style="text-align:center; font-weight:bold; font-size: 20px;">-</p>
-    
-    <!-- Fuel Savings Calculator -->
     <form id="fuel-savings-calculator">
         <h2>Calculate Estimated Fuel Savings</h2>
         <div class="form-group">
             <label for="years">Years:</label>
             <select id="years" name="years">
-                <!-- Options for Years -->
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -125,11 +128,8 @@
         </div>
         <button type="button" onclick="calculateFuelSavings()">Calculate Fuel Savings</button>
     </form>
-    
     <h2>Fuel Savings:</h2>
     <p id="fuelSavings" style="text-align:center; font-weight:bold; font-size: 20px;">-</p>
-    
-    <!-- Quick Summary -->
     <div class="summary">
         <h2>Quick Summary</h2>
         <p>Initial Cost: <span id="initialCost">-</span></p>
@@ -137,8 +137,6 @@
         <p>Final Cost: <span id="resultingCost">-</span></p>
     </div>
 </div>
-
-<!-- JavaScript Section -->
 <script>
     function calculateAffordability() {
         const carPrice = parseFloat(document.getElementById('carPrice').value);
@@ -169,6 +167,17 @@
         document.getElementById('initialCost').innerText = "$" + initialCost.toFixed(2);
         document.getElementById('initialFuelSavings').innerText = "$" + initialFuelSavings.toFixed(2);
         document.getElementById('resultingCost').innerText = "$" + resultingCost.toFixed(2);
+    }
+
+    function toggleTheme() {
+        const theme = document.documentElement.getAttribute('data-theme');
+        if (theme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.querySelector('.theme-toggle').innerText = "Switch to Dark Mode";
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.querySelector('.theme-toggle').innerText = "Switch to Light Mode";
+        }
     }
 
     window.onload = function() {
