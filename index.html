@@ -93,8 +93,10 @@
       const destinationFee = parseFloat(document.getElementById('destinationFee').value);
       const finalCost = carPrice + federalCredit + referralCredit + destinationFee;
       document.getElementById('finalCost').innerText = finalCost.toFixed(2);
+      updateSummary();
       return finalCost;
     }
+
     function calculateFuelSavings() {
       const years = parseFloat(document.getElementById('years').value);
       const milesPerYear = parseFloat(document.getElementById('milesPerYear').value);
@@ -104,15 +106,21 @@
       const totalGallons = totalMiles / mpg;
       const totalCost = totalGallons * gasPrice;
       document.getElementById('fuelSavings').innerText = totalCost.toFixed(2);
+      updateSummary();
       return totalCost;
     }
-    window.onload = function() {
+
+    function updateSummary() {
       const initialCost = calculateAffordability();
       const initialFuelSavings = calculateFuelSavings();
       const resultingCost = initialCost - initialFuelSavings;
       document.getElementById('initialCost').innerText = initialCost.toFixed(2);
       document.getElementById('initialFuelSavings').innerText = initialFuelSavings.toFixed(2);
       document.getElementById('resultingCost').innerText = resultingCost.toFixed(2);
+    }
+
+    window.onload = function() {
+      updateSummary();
     }
   </script>
 </body>
