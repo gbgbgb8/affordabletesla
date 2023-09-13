@@ -8,45 +8,75 @@
 <body>
 
   <h1>Tesla is Affordable!</h1>
-
   <p>Use this calculator to see how affordable a Tesla really is.</p>
 
   <form id="tesla-calculator">
+    <h2>Calculate Tesla Price</h2>
     <div class="form-group">
       <label for="carPrice">Car Price:</label>
       <input type="number" id="carPrice" name="carPrice" value="40240">
     </div>
-
     <div class="form-group">
       <label for="federalCredit">Federal Tax Credit:</label>
       <input type="number" id="federalCredit" name="federalCredit" value="-7500">
     </div>
-
     <div class="form-group">
       <label for="referralCredit">Referral Credit:</label>
       <input type="number" id="referralCredit" name="referralCredit" value="-500">
     </div>
-
     <div class="form-group">
       <label for="destinationFee">Destination Fee:</label>
       <input type="number" id="destinationFee" name="destinationFee" value="1390">
     </div>
-
     <button type="button" onclick="calculateAffordability()">Calculate</button>
   </form>
 
   <h2>Final Cost:</h2>
   <p id="finalCost">-</p>
 
+  <form id="fuel-savings-calculator">
+    <h2>Calculate Estimated Fuel Savings</h2>
+    <div class="form-group">
+      <label for="years">Years:</label>
+      <input type="range" id="years" name="years" min="1" max="15" value="8">
+    </div>
+    <div class="form-group">
+      <label for="milesPerYear">Miles Driven Per Year:</label>
+      <input type="number" id="milesPerYear" name="milesPerYear" value="15000">
+    </div>
+    <div class="form-group">
+      <label for="gasPrice">Gasoline Per Gallon:</label>
+      <input type="number" id="gasPrice" name="gasPrice" value="5.29">
+    </div>
+    <div class="form-group">
+      <label for="mpg">MPG Estimate:</label>
+      <input type="number" id="mpg" name="mpg" value="25">
+    </div>
+    <button type="button" onclick="calculateFuelSavings()">Calculate Fuel Savings</button>
+  </form>
+
+  <h2>Fuel Savings:</h2>
+  <p id="fuelSavings">-</p>
+
   <script>
     function calculateAffordability() {
-      const carPrice = parseFloat(document.getElementById('carPrice').value) || 0;
-      const federalCredit = parseFloat(document.getElementById('federalCredit').value) || 0;
-      const referralCredit = parseFloat(document.getElementById('referralCredit').value) || 0;
-      const destinationFee = parseFloat(document.getElementById('destinationFee').value) || 0;
-
+      const carPrice = parseFloat(document.getElementById('carPrice').value);
+      const federalCredit = parseFloat(document.getElementById('federalCredit').value);
+      const referralCredit = parseFloat(document.getElementById('referralCredit').value);
+      const destinationFee = parseFloat(document.getElementById('destinationFee').value);
       const finalCost = carPrice + federalCredit + referralCredit + destinationFee;
       document.getElementById('finalCost').innerText = `Your Tesla will only cost you $${finalCost.toFixed(2)}. What a steal!`;
+    }
+
+    function calculateFuelSavings() {
+      const years = parseFloat(document.getElementById('years').value);
+      const milesPerYear = parseFloat(document.getElementById('milesPerYear').value);
+      const gasPrice = parseFloat(document.getElementById('gasPrice').value);
+      const mpg = parseFloat(document.getElementById('mpg').value);
+      const totalMiles = years * milesPerYear;
+      const totalGallons = totalMiles / mpg;
+      const totalCost = totalGallons * gasPrice;
+      document.getElementById('fuelSavings').innerText = `You'll save approximately $${totalCost.toFixed(2)} on fuel over ${years} years.`;
     }
   </script>
 
