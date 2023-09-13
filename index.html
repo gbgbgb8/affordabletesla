@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Tesla is Affordable!123</title>
+  <title>Tesla is Affordable!</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/picocss/1.5.10/pico.min.css" integrity="sha512-R4D8tIuJws1QxZAVEpeFxtKEw4iab4HuyVzofpiO19VmlBhXW5qdTCmD/+yYQ+nviYUgS2EywDnoNTaj+lpUfA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js" integrity="sha512-7U4rRB8aGAHGVad3u2jiC7GA5/1YhQcQjxKeaVms/bT66i3LVBMRcBI9KwABNWnxOSwulkuSXxZLGuyfvo7V1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <style>
     body {
       margin: 0;
@@ -27,6 +28,10 @@
         padding: 10px;
       }
     }
+    .chart-container {
+      width: 50%;
+      margin: auto;
+    }
   </style>
 </head>
 <body>
@@ -36,6 +41,9 @@
       <p>Initial Cost: <span id="initialCost">-</span></p>
       <p>Fuel Savings: <span id="initialFuelSavings">-</span></p>
       <p>Resulting Cost: <span id="resultingCost">-</span></p>
+    </div>
+    <div class="chart-container">
+      <canvas id="costChart" width="400" height="400"></canvas>
     </div>
     <h1>Tesla is Affordable!</h1>
     <form id="tesla-calculator">
@@ -84,6 +92,21 @@
     <p id="fuelSavings">-</p>
   </div>
   <script>
+    function drawChart(finalCost, fuelSavings) {
+      const ctx = document.getElementById('costChart').getContext('2d');
+      const data = {
+        labels: ['Initial Cost', 'Fuel Savings'],
+        datasets: [{
+          data: [finalCost, fuelSavings],
+          backgroundColor: ['#FF6384', '#36A2EB'],
+        }]
+      };
+      const config = {
+        type: 'pie',
+        data: data
+      };
+      new Chart(ctx, config);
+    }
     function calculateAffordability() {
       const carPrice = parseFloat(document.getElementById('carPrice').value);
       const federalCredit = parseFloat(document.getElementById('federalCredit').value);
@@ -93,7 +116,6 @@
       document.getElementById('finalCost').innerText = `Your Tesla will only cost you $${finalCost.toFixed(2)}. What a steal!`;
       return finalCost;
     }
-
     function calculateFuelSavings() {
       const years = parseFloat(document.getElementById('years').value);
       const milesPerYear = parseFloat(document.getElementById('milesPerYear').value);
@@ -105,15 +127,14 @@
       document.getElementById('fuelSavings').innerText = `You'll save approximately $${totalCost.toFixed(2)} on fuel over ${years} years.`;
       return totalCost;
     }
-
     window.onload = function() {
       const initialCost = calculateAffordability();
       const initialFuelSavings = calculateFuelSavings();
       const resultingCost = initialCost - initialFuelSavings;
-      
       document.getElementById('initialCost').innerText = `$${initialCost.toFixed(2)}`;
       document.getElementById('initialFuelSavings').innerText = `$${initialFuelSavings.toFixed(2)}`;
       document.getElementById('resultingCost').innerText = `$${resultingCost.toFixed(2)}`;
+      drawChart(initialCost, initialFuelSavings);
     }
   </script>
 </body>
