@@ -7,70 +7,57 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/picocss/1.5.10/pico.min.css" integrity="sha512-R4D8tIuJws1QxZAVEpeFxtKEw4iab4HuyVzofpiO19VmlBhXW5qdTCmD/+yYQ+nviYUgS2EywDnoNTaj+lpUfA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <style>
-    body {
+    body, h1, h2, p, label, input, button {
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
     }
-    h1, h2 {
-      text-align: center;
-    }
     .container {
-      max-width: 800px;
+      max-width: 600px;
       margin: auto;
-      padding: 20px;
+      padding: 15px;
     }
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 10px;
+    }
+    .form-group label, .form-group input {
+      display: inline-block;
+      vertical-align: middle;
     }
     .summary {
       background-color: #f9f9f9;
       border: 1px solid #ddd;
-      padding: 10px;
-      margin-bottom: 20px;
+      padding: 5px;
+      margin-top: 10px;
       text-align: center;
       border-radius: 5px;
-    }
-    @media (max-width: 768px) {
-      .container {
-        padding: 10px;
-      }
+      font-size: 0.9em;
     }
     .chart-container {
-      width: 50%;
+      width: 100%;
       margin: auto;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="summary" id="summary">
-      <h2>Quick Summary</h2>
-      <p>Initial Cost: <span id="initialCost">-</span></p>
-      <p>Fuel Savings: <span id="initialFuelSavings">-</span></p>
-      <p>Resulting Cost: <span id="resultingCost">-</span></p>
-    </div>
-    <div class="chart-container">
-      <canvas id="costChart" width="400" height="400"></canvas>
-    </div>
     <h1>Tesla is Affordable!</h1>
+    <div class="chart-container">
+      <canvas id="costChart" width="300" height="300"></canvas>
+    </div>
     <form id="tesla-calculator">
       <h2>Calculate Tesla Price</h2>
       <div class="form-group">
-        <label for="carPrice">Car Price:</label>
-        <input type="number" id="carPrice" name="carPrice" value="40240">
+        <label for="carPrice">Car Price: </label>
+        <input type="number" id="carPrice" name="carPrice" value="40240" style="width: 100px;">
+        <label for="federalCredit">Federal Credit: </label>
+        <input type="number" id="federalCredit" name="federalCredit" value="-7500" style="width: 100px;">
       </div>
       <div class="form-group">
-        <label for="federalCredit">Federal Tax Credit:</label>
-        <input type="number" id="federalCredit" name="federalCredit" value="-7500">
-      </div>
-      <div class="form-group">
-        <label for="referralCredit">Referral Credit:</label>
-        <input type="number" id="referralCredit" name="referralCredit" value="-500">
-      </div>
-      <div class="form-group">
-        <label for="destinationFee">Destination Fee:</label>
-        <input type="number" id="destinationFee" name="destinationFee" value="1390">
+        <label for="referralCredit">Referral Credit: </label>
+        <input type="number" id="referralCredit" name="referralCredit" value="-500" style="width: 100px;">
+        <label for="destinationFee">Destination Fee: </label>
+        <input type="number" id="destinationFee" name="destinationFee" value="1390" style="width: 100px;">
       </div>
       <button type="button" onclick="calculateAffordability()">Calculate</button>
     </form>
@@ -79,25 +66,29 @@
     <form id="fuel-savings-calculator">
       <h2>Calculate Estimated Fuel Savings</h2>
       <div class="form-group">
-        <label for="years">Years:</label>
-        <input type="range" id="years" name="years" min="1" max="15" value="8">
+        <label for="years">Years: </label>
+        <input type="range" id="years" name="years" min="1" max="15" value="8" style="width: 100px;">
       </div>
       <div class="form-group">
-        <label for="milesPerYear">Miles Driven Per Year:</label>
-        <input type="number" id="milesPerYear" name="milesPerYear" value="15000">
+        <label for="milesPerYear">Miles/Year: </label>
+        <input type="number" id="milesPerYear" name="milesPerYear" value="15000" style="width: 100px;">
+        <label for="gasPrice">Gas/Gallon: </label>
+        <input type="number" id="gasPrice" name="gasPrice" value="5.29" style="width: 100px;">
       </div>
       <div class="form-group">
-        <label for="gasPrice">Gasoline Per Gallon:</label>
-        <input type="number" id="gasPrice" name="gasPrice" value="5.29">
-      </div>
-      <div class="form-group">
-        <label for="mpg">MPG Estimate:</label>
-        <input type="number" id="mpg" name="mpg" value="25">
+        <label for="mpg">MPG: </label>
+        <input type="number" id="mpg" name="mpg" value="25" style="width: 100px;">
       </div>
       <button type="button" onclick="calculateFuelSavings()">Calculate Fuel Savings</button>
     </form>
     <h2>Fuel Savings:</h2>
     <p id="fuelSavings">-</p>
+    <div class="summary" id="summary">
+      <h2>Quick Summary</h2>
+      <p>Initial: <span id="initialCost">-</span></p>
+      <p>Savings: <span id="initialFuelSavings">-</span></p>
+      <p>Final: <span id="resultingCost">-</span></p>
+    </div>
   </div>
   <script>
     function drawChart(finalCost, fuelSavings) {
@@ -121,7 +112,7 @@
       const referralCredit = parseFloat(document.getElementById('referralCredit').value);
       const destinationFee = parseFloat(document.getElementById('destinationFee').value);
       const finalCost = carPrice + federalCredit + referralCredit + destinationFee;
-      document.getElementById('finalCost').innerText = `Your Tesla will only cost you $${finalCost.toFixed(2)}. What a steal!`;
+      document.getElementById('finalCost').innerText = finalCost.toFixed(2);
       return finalCost;
     }
     function calculateFuelSavings() {
@@ -132,16 +123,16 @@
       const totalMiles = years * milesPerYear;
       const totalGallons = totalMiles / mpg;
       const totalCost = totalGallons * gasPrice;
-      document.getElementById('fuelSavings').innerText = `You'll save approximately $${totalCost.toFixed(2)} on fuel over ${years} years.`;
+      document.getElementById('fuelSavings').innerText = totalCost.toFixed(2);
       return totalCost;
     }
     window.onload = function() {
       const initialCost = calculateAffordability();
       const initialFuelSavings = calculateFuelSavings();
       const resultingCost = initialCost - initialFuelSavings;
-      document.getElementById('initialCost').innerText = `$${initialCost.toFixed(2)}`;
-      document.getElementById('initialFuelSavings').innerText = `$${initialFuelSavings.toFixed(2)}`;
-      document.getElementById('resultingCost').innerText = `$${resultingCost.toFixed(2)}`;
+      document.getElementById('initialCost').innerText = initialCost.toFixed(2);
+      document.getElementById('initialFuelSavings').innerText = initialFuelSavings.toFixed(2);
+      document.getElementById('resultingCost').innerText = resultingCost.toFixed(2);
       drawChart(initialCost, initialFuelSavings);
     }
   </script>
