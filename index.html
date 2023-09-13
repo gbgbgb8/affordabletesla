@@ -5,7 +5,6 @@
   <title>Tesla is Affordable!</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/picocss/1.5.10/pico.min.css" integrity="sha512-R4D8tIuJws1QxZAVEpeFxtKEw4iab4HuyVzofpiO19VmlBhXW5qdTCmD/+yYQ+nviYUgS2EywDnoNTaj+lpUfA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <style>
     body, h1, h2, p, label, input, button {
       margin: 0;
@@ -33,31 +32,27 @@
       border-radius: 5px;
       font-size: 0.9em;
     }
-    .chart-container {
-      width: 100%;
-      margin: auto;
+    input[type="number"] {
+      width: 120px;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Tesla is Affordable!</h1>
-    <div class="chart-container">
-      <canvas id="costChart" width="300" height="300"></canvas>
-    </div>
     <form id="tesla-calculator">
       <h2>Calculate Tesla Price</h2>
       <div class="form-group">
         <label for="carPrice">Car Price: </label>
-        <input type="number" id="carPrice" name="carPrice" value="40240" style="width: 100px;">
+        <input type="number" id="carPrice" name="carPrice" value="40240">
         <label for="federalCredit">Federal Credit: </label>
-        <input type="number" id="federalCredit" name="federalCredit" value="-7500" style="width: 100px;">
+        <input type="number" id="federalCredit" name="federalCredit" value="-7500">
       </div>
       <div class="form-group">
         <label for="referralCredit">Referral Credit: </label>
-        <input type="number" id="referralCredit" name="referralCredit" value="-500" style="width: 100px;">
+        <input type="number" id="referralCredit" name="referralCredit" value="-500">
         <label for="destinationFee">Destination Fee: </label>
-        <input type="number" id="destinationFee" name="destinationFee" value="1390" style="width: 100px;">
+        <input type="number" id="destinationFee" name="destinationFee" value="1390">
       </div>
       <button type="button" onclick="calculateAffordability()">Calculate</button>
     </form>
@@ -71,13 +66,13 @@
       </div>
       <div class="form-group">
         <label for="milesPerYear">Miles/Year: </label>
-        <input type="number" id="milesPerYear" name="milesPerYear" value="15000" style="width: 100px;">
+        <input type="number" id="milesPerYear" name="milesPerYear" value="15000">
         <label for="gasPrice">Gas/Gallon: </label>
-        <input type="number" id="gasPrice" name="gasPrice" value="5.29" style="width: 100px;">
+        <input type="number" id="gasPrice" name="gasPrice" value="5.29">
       </div>
       <div class="form-group">
         <label for="mpg">MPG: </label>
-        <input type="number" id="mpg" name="mpg" value="25" style="width: 100px;">
+        <input type="number" id="mpg" name="mpg" value="25">
       </div>
       <button type="button" onclick="calculateFuelSavings()">Calculate Fuel Savings</button>
     </form>
@@ -91,21 +86,6 @@
     </div>
   </div>
   <script>
-    function drawChart(finalCost, fuelSavings) {
-      const ctx = document.getElementById('costChart').getContext('2d');
-      const data = {
-        labels: ['Initial Cost', 'Fuel Savings'],
-        datasets: [{
-          data: [finalCost, fuelSavings],
-          backgroundColor: ['#FF6384', '#36A2EB'],
-        }]
-      };
-      const config = {
-        type: 'pie',
-        data: data
-      };
-      new Chart(ctx, config);
-    }
     function calculateAffordability() {
       const carPrice = parseFloat(document.getElementById('carPrice').value);
       const federalCredit = parseFloat(document.getElementById('federalCredit').value);
@@ -133,7 +113,6 @@
       document.getElementById('initialCost').innerText = initialCost.toFixed(2);
       document.getElementById('initialFuelSavings').innerText = initialFuelSavings.toFixed(2);
       document.getElementById('resultingCost').innerText = resultingCost.toFixed(2);
-      drawChart(initialCost, initialFuelSavings);
     }
   </script>
 </body>
