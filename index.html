@@ -14,27 +14,22 @@
   <form id="tesla-calculator">
     <div class="form-group">
       <label for="carPrice">Car Price:</label>
-      <input type="number" id="carPrice" name="carPrice">
+      <input type="number" id="carPrice" name="carPrice" value="40240">
     </div>
 
     <div class="form-group">
-      <label for="federalCredit">Federal Credit:</label>
-      <input type="number" id="federalCredit" name="federalCredit">
-    </div>
-
-    <div class="form-group">
-      <label for="stateCredit">State Credit:</label>
-      <input type="number" id="stateCredit" name="stateCredit">
+      <label for="federalCredit">Federal Tax Credit:</label>
+      <input type="number" id="federalCredit" name="federalCredit" value="-7500">
     </div>
 
     <div class="form-group">
       <label for="referralCredit">Referral Credit:</label>
-      <input type="number" id="referralCredit" name="referralCredit">
+      <input type="number" id="referralCredit" name="referralCredit" value="-500">
     </div>
 
     <div class="form-group">
-      <label for="otherCredit">Other Credit:</label>
-      <input type="number" id="otherCredit" name="otherCredit">
+      <label for="destinationFee">Destination Fee:</label>
+      <input type="number" id="destinationFee" name="destinationFee" value="1390">
     </div>
 
     <button type="button" onclick="calculateAffordability()">Calculate</button>
@@ -47,11 +42,10 @@
     function calculateAffordability() {
       const carPrice = parseFloat(document.getElementById('carPrice').value) || 0;
       const federalCredit = parseFloat(document.getElementById('federalCredit').value) || 0;
-      const stateCredit = parseFloat(document.getElementById('stateCredit').value) || 0;
       const referralCredit = parseFloat(document.getElementById('referralCredit').value) || 0;
-      const otherCredit = parseFloat(document.getElementById('otherCredit').value) || 0;
+      const destinationFee = parseFloat(document.getElementById('destinationFee').value) || 0;
 
-      const finalCost = carPrice - (federalCredit + stateCredit + referralCredit + otherCredit);
+      const finalCost = carPrice + federalCredit + referralCredit + destinationFee;
       document.getElementById('finalCost').innerText = `Your Tesla will only cost you $${finalCost.toFixed(2)}. What a steal!`;
     }
   </script>
