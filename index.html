@@ -32,7 +32,12 @@
 <body>
   <div class="container">
     <h1>Tesla is Affordable!</h1>
-    <p>Use this calculator to see how affordable a Tesla really is.</p>
+    <div id="summary">
+      <h2>Quick Summary</h2>
+      <p>Initial Cost: <span id="initialCost">-</span></p>
+      <p>Fuel Savings: <span id="initialFuelSavings">-</span></p>
+      <p>Resulting Cost: <span id="resultingCost">-</span></p>
+    </div>
     <form id="tesla-calculator">
       <h2>Calculate Tesla Price</h2>
       <div class="form-group">
@@ -87,6 +92,7 @@
       const finalCost = carPrice + federalCredit + referralCredit + destinationFee;
       document.getElementById('finalCost').innerText = `Your Tesla will only cost you $${finalCost.toFixed(2)}. What a steal!`;
     }
+
     function calculateFuelSavings() {
       const years = parseFloat(document.getElementById('years').value);
       const milesPerYear = parseFloat(document.getElementById('milesPerYear').value);
@@ -96,6 +102,19 @@
       const totalGallons = totalMiles / mpg;
       const totalCost = totalGallons * gasPrice;
       document.getElementById('fuelSavings').innerText = `You'll save approximately $${totalCost.toFixed(2)} on fuel over ${years} years.`;
+    }
+
+    window.onload = function() {
+      calculateAffordability();
+      calculateFuelSavings();
+      
+      const initialCost = parseFloat(document.getElementById('finalCost').innerText.replace(/[^\d.]/g, ''));
+      const initialFuelSavings = parseFloat(document.getElementById('fuelSavings').innerText.replace(/[^\d.]/g, ''));
+      const resultingCost = initialCost - initialFuelSavings;
+      
+      document.getElementById('initialCost').innerText = `$${initialCost.toFixed(2)}`;
+      document.getElementById('initialFuelSavings').innerText = `$${initialFuelSavings.toFixed(2)}`;
+      document.getElementById('resultingCost').innerText = `$${resultingCost.toFixed(2)}`;
     }
   </script>
 </body>
