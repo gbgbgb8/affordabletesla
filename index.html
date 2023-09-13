@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tesla is Affordable!</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/picocss/1.5.10/pico.min.css" integrity="sha512-R4D8tIuJws1QxZAVEpeFxtKEw4iab4HuyVzofpiO19VmlBhXW5qdTCmD/+yYQ+nviYUgS2EywDnoNTaj+lpUfA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+  <h1>Tesla is Affordable!</h1>
+
+  <p>Use this calculator to see how affordable a Tesla really is.</p>
+
+  <form id="tesla-calculator">
+    <div class="form-group">
+      <label for="carPrice">Car Price:</label>
+      <input type="number" id="carPrice" name="carPrice">
+    </div>
+
+    <div class="form-group">
+      <label for="federalCredit">Federal Credit:</label>
+      <input type="number" id="federalCredit" name="federalCredit">
+    </div>
+
+    <div class="form-group">
+      <label for="stateCredit">State Credit:</label>
+      <input type="number" id="stateCredit" name="stateCredit">
+    </div>
+
+    <div class="form-group">
+      <label for="referralCredit">Referral Credit:</label>
+      <input type="number" id="referralCredit" name="referralCredit">
+    </div>
+
+    <div class="form-group">
+      <label for="otherCredit">Other Credit:</label>
+      <input type="number" id="otherCredit" name="otherCredit">
+    </div>
+
+    <button type="button" onclick="calculateAffordability()">Calculate</button>
+  </form>
+
+  <h2>Final Cost:</h2>
+  <p id="finalCost">-</p>
+
+  <script>
+    function calculateAffordability() {
+      const carPrice = parseFloat(document.getElementById('carPrice').value) || 0;
+      const federalCredit = parseFloat(document.getElementById('federalCredit').value) || 0;
+      const stateCredit = parseFloat(document.getElementById('stateCredit').value) || 0;
+      const referralCredit = parseFloat(document.getElementById('referralCredit').value) || 0;
+      const otherCredit = parseFloat(document.getElementById('otherCredit').value) || 0;
+
+      const finalCost = carPrice - (federalCredit + stateCredit + referralCredit + otherCredit);
+      document.getElementById('finalCost').innerText = `Your Tesla will only cost you $${finalCost.toFixed(2)}. What a steal!`;
+    }
+  </script>
+
+</body>
+</html>
