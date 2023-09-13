@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <title>Tesla is Affordable!</title>
@@ -68,20 +69,14 @@
             border-bottom: 1px solid var(--on-bg);
         }
         .theme-switcher {
-            text-align: center;
-            margin-top: 20px;
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
         }
     </style>
 </head>
+
 <body>
-<div class="theme-switcher">
-    <fieldset>
-        <label>
-            Dark Mode:
-            <input type="checkbox" role="switch" checked onchange="toggleTheme()">
-        </label>
-    </fieldset>
-</div>
 <div class="container">
     <h1>Tesla Affordability Calculator</h1>
     <form id="tesla-calculator">
@@ -159,6 +154,14 @@
             </tr>
         </table>
     </div>
+</div>
+<div class="theme-switcher">
+    <fieldset>
+        <label>
+            Dark Mode:
+            <input type="checkbox" role="switch" checked onchange="toggleTheme()">
+        </label>
+    </fieldset>
 </div>
 <script>
     function calculateTotal() {
