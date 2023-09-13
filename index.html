@@ -1,91 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Tesla is Affordable!</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/picocss/1.5.10/pico.min.css" integrity="sha512-R4D8tIuJws1QxZAVEpeFxtKEw4iab4HuyVzofpiO19VmlBhXW5qdTCmD/+yYQ+nviYUgS2EywDnoNTaj+lpUfA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <style>
-    body, h1, h2, p, label, input, button {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
-    .container {
-      max-width: 600px;
-      margin: auto;
-      padding: 15px;
-    }
-    .form-group {
-      margin-bottom: 10px;
-    }
-    .form-group label, .form-group input {
-      display: inline-block;
-      vertical-align: middle;
-    }
-    .summary {
-      background-color: #f9f9f9;
-      border: 1px solid #ddd;
-      padding: 5px;
-      margin-top: 10px;
-      text-align: center;
-      border-radius: 5px;
-      font-size: 0.9em;
-    }
-    input[type="number"] {
-      width: 120px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Tesla is Affordable!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/picocss/1.5.10/pico.min.css" integrity="sha512-R4D8tIuJws1QxZAVEpeFxtKEw4iab4HuyVzofpiO19VmlBhXW5qdTCmD/+yYQ+nviYUgS2EywDnoNTaj+lpUfA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body, h1, h2, p, label, input, button, select {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 15px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .form-group label, .form-group input, .form-group select {
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .summary {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 5px;
+            margin-top: 10px;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        input[type="number"], select {
+            width: 120px;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
+<div class="container">
     <h1>Tesla is Affordable!</h1>
     <form id="tesla-calculator">
-      <h2>Calculate Tesla Price</h2>
-      <div class="form-group">
-        <label for="carPrice">Car Price: </label>
-        <input type="number" id="carPrice" name="carPrice" value="40240">
-        <label for="federalCredit">Federal Credit: </label>
-        <input type="number" id="federalCredit" name="federalCredit" value="-7500">
-      </div>
-      <div class="form-group">
-        <label for="referralCredit">Referral Credit: </label>
-        <input type="number" id="referralCredit" name="referralCredit" value="-500">
-        <label for="destinationFee">Destination Fee: </label>
-        <input type="number" id="destinationFee" name="destinationFee" value="1390">
-      </div>
-      <button type="button" onclick="calculateAffordability()">Calculate</button>
+        <h2>Calculate Tesla Price</h2>
+        <div class="form-group">
+            <label for="carPrice">Car Price: </label>
+            <input type="number" id="carPrice" name="carPrice" value="40240">
+            <label for="federalCredit">Federal Credit: </label>
+            <input type="number" id="federalCredit" name="federalCredit" value="-7500">
+        </div>
+        <div class="form-group">
+            <label for="referralCredit">Referral Credit: </label>
+            <input type="number" id="referralCredit" name="referralCredit" value="-500">
+            <label for="destinationFee">Destination Fee: </label>
+            <input type="number" id="destinationFee" name="destinationFee" value="1390">
+        </div>
+        <button type="button" onclick="calculateAffordability()">Calculate</button>
     </form>
     <h2>Final Cost:</h2>
     <p id="finalCost">-</p>
     <form id="fuel-savings-calculator">
-      <h2>Calculate Estimated Fuel Savings</h2>
-      <div class="form-group">
-        <label for="years">Years: </label>
-        <input type="range" id="years" name="years" min="1" max="15" value="8" style="width: 100px;">
-      </div>
-      <div class="form-group">
-        <label for="milesPerYear">Miles/Year: </label>
-        <input type="number" id="milesPerYear" name="milesPerYear" value="15000">
-        <label for="gasPrice">Gas/Gallon: </label>
-        <input type="number" id="gasPrice" name="gasPrice" value="5.29">
-      </div>
-      <div class="form-group">
-        <label for="mpg">MPG: </label>
-        <input type="number" id="mpg" name="mpg" value="25">
-      </div>
-      <button type="button" onclick="calculateFuelSavings()">Calculate Fuel Savings</button>
+        <h2>Calculate Estimated Fuel Savings</h2>
+        <div class="form-group">
+            <label for="years">Years: </label>
+            <select id="years" name="years">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8" selected>8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="milesPerYear">Miles/Year: </label>
+            <input type="number" id="milesPerYear" name="milesPerYear" value="15000">
+            <label for="gasPrice">Gas/Gallon: </label>
+            <input type="number" id="gasPrice" name="gasPrice" value="5.29">
+        </div>
+        <div class="form-group">
+            <label for="mpg">MPG: </label>
+            <input type="number" id="mpg" name="mpg" value="25">
+        </div>
+        <button type="button" onclick="calculateFuelSavings()">Calculate Fuel Savings</button>
     </form>
     <h2>Fuel Savings:</h2>
     <p id="fuelSavings">-</p>
     <div class="summary" id="summary">
-      <h2>Quick Summary</h2>
-      <p>Initial: <span id="initialCost">-</span></p>
-      <p>Savings: <span id="initialFuelSavings">-</span></p>
-      <p>Final: <span id="resultingCost">-</span></p>
+        <h2>Quick Summary</h2>
+        <p>Initial: <span id="initialCost">-</span></p>
+        <p>Savings: <span id="initialFuelSavings">-</span></p>
+        <p>Final: <span id="resultingCost">-</span></p>
     </div>
-  </div>
-  <script>
+</div>
+<script>
     function calculateAffordability() {
         const carPrice = parseFloat(document.getElementById('carPrice').value);
         const federalCredit = parseFloat(document.getElementById('federalCredit').value);
@@ -119,12 +135,12 @@
 
     window.onload = function() {
         updateSummary();
-        
-        const inputs = document.querySelectorAll('input');
+
+        const inputs = document.querySelectorAll('input, select');
         for (let input of inputs) {
             input.addEventListener('input', updateSummary);
         }
     }
-  </script>
+</script>
 </body>
 </html>
