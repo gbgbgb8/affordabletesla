@@ -79,6 +79,7 @@
 <body>
 <div class="container">
     <h1>Tesla Affordability Calculator</h1>
+    <p id="summaryStatement">The total cost of this Tesla after <span id="yearsValue">X</span> years of fuel savings and <span id="totalCreditsValue">Y</span> Federal/State/Referral credits is:</p>
     <form id="tesla-calculator">
         <div class="calculator-section">
             <div>
@@ -131,7 +132,6 @@
                 </div>
             </div>
         </div>
-        <button type="button" onclick="calculateTotal()">Calculate</button>
     </form>
     <div class="summary">
         <h2>Quick Summary</h2>
@@ -164,10 +164,23 @@
     </fieldset>
 </div>
 <script>
+    function updateStatement() {
+        const years = document.getElementById('years').value;
+        const federalCredit = document.getElementById('federalCredit').value;
+        const referralCredit = document.getElementById('referralCredit').value;
+        const totalCredits = parseFloat(federalCredit) + parseFloat(referralCredit);
+
+        document.getElementById('yearsValue').textContent = years;
+        document.getElementById('totalCreditsValue').textContent = "$" + Math.abs(totalCredits).toFixed(2);
+    }
+
     function calculateTotal() {
+        updateStatement();
+
         const initialCost = calculateAffordability();
         const initialFuelSavings = calculateFuelSavings();
         const resultingCost = initialCost - initialFuelSavings;
+
         document.getElementById('initialCost').innerText = "$" + initialCost.toFixed(2);
         document.getElementById('initialFuelSavings').innerText = "$" + initialFuelSavings.toFixed(2);
         document.getElementById('resultingCost').innerText = "$" + resultingCost.toFixed(2);
@@ -201,12 +214,17 @@
     }
 
     window.onload = function() {
-        calculateTotal();
         const inputs = document.querySelectorAll('input, select');
         for (let input of inputs) {
-            input.addEventListener('input', calculateTotal);
+            input.addEventListener('input', function() {
+                updateStatement();
+                calculateTotal();
+            });
         }
+        updateStatement();
+        calculateTotal();
     }
 </script>
 </body>
+
 </html>
