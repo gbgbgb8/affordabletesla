@@ -58,6 +58,15 @@
             padding: 15px;
             margin-top: 15px;
         }
+        .summary table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .summary th, .summary td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid var(--on-bg);
+        }
         .theme-switcher {
             text-align: center;
             margin-top: 20px;
@@ -65,6 +74,14 @@
     </style>
 </head>
 <body>
+<div class="theme-switcher">
+    <fieldset>
+        <label>
+            Dark Mode:
+            <input type="checkbox" role="switch" checked onchange="toggleTheme()">
+        </label>
+    </fieldset>
+</div>
 <div class="container">
     <h1>Tesla Affordability Calculator</h1>
     <form id="tesla-calculator">
@@ -123,17 +140,24 @@
     </form>
     <div class="summary">
         <h2>Quick Summary</h2>
-        <p>Initial Cost: <span id="initialCost">-</span></p>
-        <p>Fuel Savings: <span id="initialFuelSavings">-</span></p>
-        <p>Final Cost: <span id="resultingCost">-</span></p>
-    </div>
-    <div class="theme-switcher">
-        <fieldset>
-            <label>
-                Dark Mode:
-                <input type="checkbox" role="switch" checked onchange="toggleTheme()">
-            </label>
-        </fieldset>
+        <table>
+            <tr>
+                <th>Description</th>
+                <th>Amount</th>
+            </tr>
+            <tr>
+                <td>Initial Cost:</td>
+                <td><span id="initialCost">-</span></td>
+            </tr>
+            <tr>
+                <td>Fuel Savings:</td>
+                <td><span id="initialFuelSavings">-</span></td>
+            </tr>
+            <tr>
+                <td>Final Cost:</td>
+                <td><span id="resultingCost">-</span></td>
+            </tr>
+        </table>
     </div>
 </div>
 <script>
