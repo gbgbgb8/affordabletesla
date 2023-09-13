@@ -7,67 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/picocss/1.5.10/pico.min.css" integrity="sha512-R4D8tIuJws1QxZAVEpeFxtKEw4iab4HuyVzofpiO19VmlBhXW5qdTCmD/+yYQ+nviYUgS2EywDnoNTaj+lpUfA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-        .container {
-            background-color: var(--bg);
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .calculator-section {
-            display: flex;
-            justify-content: space-between;
-        }
-        .calculator-section > div {
-            width: 48%;
-        }
-        .section-header {
-            text-align: center;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label, input, select {
-            margin: 5px 0;
-        }
-        button {
-            display: block;
-            width: 100%;
-            padding: 10px 20px;
-            margin-top: 10px;
-            background-color: var(--primary);
-            color: var(--on-primary);
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .summary {
-            background-color: var(--surface);
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 15px;
-        }
-        .summary table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .summary th, .summary td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid var(--on-bg);
-        }
         .theme-switcher {
             position: fixed;
             right: 20px;
@@ -77,154 +16,147 @@
 </head>
 
 <body>
-<div class="container">
-    <h1>Tesla Affordability Calculator</h1>
-    <p id="summaryStatement">The total cost of this Tesla after <span id="yearsValue">X</span> years of fuel savings and <span id="totalCreditsValue">Y</span> Federal/State/Referral credits is:</p>
-    <form id="tesla-calculator">
-        <div class="calculator-section">
-            <div>
-                <div class="section-header">Vehicle Cost</div>
-                <div class="form-group">
-                    <label for="carPrice">Car Price:</label>
-                    <input type="number" id="carPrice" name="carPrice" value="40240">
+    <main class="container">
+        <header>
+            <h1>Tesla Affordability Calculator</h1>
+            <p id="summaryStatement">The total cost of this Tesla after <span id="yearsValue">X</span> years of fuel savings and <span id="totalCreditsValue">Y</span> Federal/State/Referral credits is: <span id="totalValue">Z</span></p>
+        </header>
+        <section>
+            <form id="tesla-calculator">
+                <div class="grid">
+                    <div>
+                        <label for="carPrice">Car Price:</label>
+                        <input type="number" id="carPrice" name="carPrice" value="40240" required>
+                        <label for="federalCredit">Federal Credit:</label>
+                        <input type="number" id="federalCredit" name="federalCredit" value="-7500" required>
+                        <label for="referralCredit">Ref. Credit:</label>
+                        <input type="number" id="referralCredit" name="referralCredit" value="-500" required>
+                        <label for="destinationFee">Dest. Fee:</label>
+                        <input type="number" id="destinationFee" name="destinationFee" value="1390" required>
+                    </div>
+                    <div>
+                        <label for="years">Years:</label>
+                        <select id="years" name="years">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8" selected>8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                        <label for="milesPerYear">Miles/Year:</label>
+                        <input type="number" id="milesPerYear" name="milesPerYear" value="15000" required>
+                        <label for="gasPrice">Gas/Gallon:</label>
+                        <input type="number" id="gasPrice" name="gasPrice" value="5.29" required>
+                        <label for="mpg">MPG:</label>
+                        <input type="number" id="mpg" name="mpg" value="25" required>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="federalCredit">Federal Credit:</label>
-                    <input type="number" id="federalCredit" name="federalCredit" value="-7500">
-                </div>
-                <div class="form-group">
-                    <label for="referralCredit">Ref. Credit:</label>
-                    <input type="number" id="referralCredit" name="referralCredit" value="-500">
-                </div>
-                <div class="form-group">
-                    <label for="destinationFee">Dest. Fee:</label>
-                    <input type="number" id="destinationFee" name="destinationFee" value="1390">
-                </div>
+            </form>
+        </section>
+        <section>
+            <div class="summary">
+                <h2>Quick Summary</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Description</th>
+                            <th scope="col">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Initial Cost:</td>
+                            <td><span id="initialCost">-</span></td>
+                        </tr>
+                        <tr>
+                            <td>Fuel Savings:</td>
+                            <td><span id="initialFuelSavings">-</span></td>
+                        </tr>
+                        <tr>
+                            <td>Final Cost:</td>
+                            <td><span id="resultingCost">-</span></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div>
-                <div class="section-header">Fuel Savings</div>
-                <div class="form-group">
-                    <label for="years">Years:</label>
-                    <select id="years" name="years">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8" selected>8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="milesPerYear">Miles/Year:</label>
-                    <input type="number" id="milesPerYear" name="milesPerYear" value="15000">
-                </div>
-                <div class="form-group">
-                    <label for="gasPrice">Gas/Gallon:</label>
-                    <input type="number" id="gasPrice" name="gasPrice" value="5.29">
-                </div>
-                <div class="form-group">
-                    <label for="mpg">MPG:</label>
-                    <input type="number" id="mpg" name="mpg" value="25">
-                </div>
-            </div>
-        </div>
-    </form>
-    <div class="summary">
-        <h2>Quick Summary</h2>
-        <table>
-            <tr>
-                <th>Description</th>
-                <th>Amount</th>
-            </tr>
-            <tr>
-                <td>Initial Cost:</td>
-                <td><span id="initialCost">-</span></td>
-            </tr>
-            <tr>
-                <td>Fuel Savings:</td>
-                <td><span id="initialFuelSavings">-</span></td>
-            </tr>
-            <tr>
-                <td>Final Cost:</td>
-                <td><span id="resultingCost">-</span></td>
-            </tr>
-        </table>
+        </section>
+    </main>
+    <div class="theme-switcher">
+        <fieldset>
+            <label>
+                Dark Mode:
+                <input type="checkbox" role="switch" checked onchange="toggleTheme()">
+            </label>
+        </fieldset>
     </div>
-</div>
-<div class="theme-switcher">
-    <fieldset>
-        <label>
-            Dark Mode:
-            <input type="checkbox" role="switch" checked onchange="toggleTheme()">
-        </label>
-    </fieldset>
-</div>
-<script>
-    function updateStatement() {
-        const years = document.getElementById('years').value;
-        const federalCredit = document.getElementById('federalCredit').value;
-        const referralCredit = document.getElementById('referralCredit').value;
-        const totalCredits = parseFloat(federalCredit) + parseFloat(referralCredit);
+    <script>
+        function updateStatement() {
+            const years = document.getElementById('years').value;
+            const federalCredit = document.getElementById('federalCredit').value;
+            const referralCredit = document.getElementById('referralCredit').value;
+            const totalCredits = parseFloat(federalCredit) + parseFloat(referralCredit);
 
-        document.getElementById('yearsValue').textContent = years;
-        document.getElementById('totalCreditsValue').textContent = "$" + Math.abs(totalCredits).toFixed(2);
-    }
-
-    function calculateTotal() {
-        updateStatement();
-
-        const initialCost = calculateAffordability();
-        const initialFuelSavings = calculateFuelSavings();
-        const resultingCost = initialCost - initialFuelSavings;
-
-        document.getElementById('initialCost').innerText = "$" + initialCost.toFixed(2);
-        document.getElementById('initialFuelSavings').innerText = "$" + initialFuelSavings.toFixed(2);
-        document.getElementById('resultingCost').innerText = "$" + resultingCost.toFixed(2);
-    }
-
-    function calculateAffordability() {
-        const carPrice = parseFloat(document.getElementById('carPrice').value);
-        const federalCredit = parseFloat(document.getElementById('federalCredit').value);
-        const referralCredit = parseFloat(document.getElementById('referralCredit').value);
-        const destinationFee = parseFloat(document.getElementById('destinationFee').value);
-        return carPrice + federalCredit + referralCredit + destinationFee;
-    }
-
-    function calculateFuelSavings() {
-        const years = parseFloat(document.getElementById('years').value);
-        const milesPerYear = parseFloat(document.getElementById('milesPerYear').value);
-        const gasPrice = parseFloat(document.getElementById('gasPrice').value);
-        const mpg = parseFloat(document.getElementById('mpg').value);
-        const totalMiles = years * milesPerYear;
-        const totalGallons = totalMiles / mpg;
-        return totalGallons * gasPrice;
-    }
-
-    function toggleTheme() {
-        const theme = document.documentElement.getAttribute('data-theme');
-        if (theme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'light');
-        } else {
-            document.documentElement.setAttribute('data-theme', 'dark');
+            document.getElementById('yearsValue').textContent = years;
+            document.getElementById('totalCreditsValue').textContent = "$" + Math.abs(totalCredits).toFixed(2);
         }
-    }
 
-    window.onload = function() {
-        const inputs = document.querySelectorAll('input, select');
-        for (let input of inputs) {
-            input.addEventListener('input', function() {
-                updateStatement();
-                calculateTotal();
-            });
+        function calculateTotal() {
+            updateStatement();
+
+            const initialCost = calculateAffordability();
+            const initialFuelSavings = calculateFuelSavings();
+            const resultingCost = initialCost - initialFuelSavings;
+
+            document.getElementById('initialCost').innerText = "$" + initialCost.toFixed(2);
+            document.getElementById('initialFuelSavings').innerText = "$" + initialFuelSavings.toFixed(2);
+            document.getElementById('resultingCost').innerText = "$" + resultingCost.toFixed(2);
+            document.getElementById('totalValue').textContent = "$" + resultingCost.toFixed(2);
         }
-        updateStatement();
-        calculateTotal();
-    }
-</script>
+
+        function calculateAffordability() {
+            const carPrice = parseFloat(document.getElementById('carPrice').value);
+            const federalCredit = parseFloat(document.getElementById('federalCredit').value);
+            const referralCredit = parseFloat(document.getElementById('referralCredit').value);
+            const destinationFee = parseFloat(document.getElementById('destinationFee').value);
+            return carPrice + federalCredit + referralCredit + destinationFee;
+        }
+
+        function calculateFuelSavings() {
+            const years = parseFloat(document.getElementById('years').value);
+            const milesPerYear = parseFloat(document.getElementById('milesPerYear').value);
+            const gasPrice = parseFloat(document.getElementById('gasPrice').value);
+            const mpg = parseFloat(document.getElementById('mpg').value);
+            const totalMiles = years * milesPerYear;
+            const totalGallons = totalMiles / mpg;
+            return totalGallons * gasPrice;
+        }
+
+        function toggleTheme() {
+            const theme = document.documentElement.getAttribute('data-theme');
+            if (theme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        }
+
+        window.onload = function() {
+            const inputs = document.querySelectorAll('input, select');
+            for (let input of inputs) {
+                input.addEventListener('input', function() {
+                    updateStatement();
+                    calculateTotal();
+                });
+            }
+            updateStatement();
+            calculateTotal();
+        }
+    </script>
 </body>
 
 </html>
