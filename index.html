@@ -16,11 +16,6 @@
         #totalValue {
             font-size: 1.2em;
         }
-
-        label {
-            display: block;
-            margin-bottom: 1rem;
-        }
     </style>
 </head>
 
@@ -28,7 +23,7 @@
     <main class="container">
         <header>
             <h1>Tesla Affordability Calculator</h1>
-            <p id="summaryStatement">With a base vehicle price of <mark id="basePrice">X</mark>, after <mark id="yearsHighlight">Y</mark> of fuel savings, considering an average of <mark id="milesYearHighlight">Z</mark> miles per year, gas price of <mark id="gasPriceHighlight">A</mark> per gallon, and an average MPG of <mark id="mpgHighlight">B</mark>, along with <mark id="totalCreditsHighlight">C</mark> in Federal/State/Referral credits, the total cost of this Tesla is: <kbd id="totalValue">D</kbd></p>
+            <p id="summaryStatement">With a base vehicle price of <mark id="basePrice">X</mark>, after <mark id="yearsHighlight">Y</mark> of fuel savings, considering an average of <mark id="milesYearHighlight">Z</mark> per year, gas price of <mark id="gasPriceHighlight">A</mark> per gallon, and an average MPG of <mark id="mpgHighlight">B</mark>, along with <mark id="totalCreditsHighlight">C</mark> in Federal/State/Referral credits, the total cost of this Tesla is: <kbd id="totalValue">D</kbd></p>
         </header>
         <section>
             <form id="tesla-calculator">
@@ -63,6 +58,12 @@
                         <input type="number" id="gasPrice" name="gasPrice" value="5.29" required>
                         <label for="mpg" data-tooltip="The national average MPG is around 25 MPG, adjust as needed.">MPG:</label>
                         <input type="number" id="mpg" name="mpg" value="25" required>
+                        <label for="electricityCost" data-tooltip="Average cost of electricity per kilowatt-hour. National average is $0.16. Adjust based on your local rates.">Electricity per kWh:</label>
+                        <input type="number" id="electricityCost" name="electricityCost" value="0.16" required>
+                        <label for="model3Consumption" data-tooltip="Tesla Model 3's consumption rate in kWh/100mi. Default value is based on the Model 3 Rear-Wheel Drive.">Model 3 Consumption (kWh/100mi):</label>
+                        <input type="number" id="model3Consumption" name="model3Consumption" value="25.0" required>
+                        <label for="comparisonCarMPG" data-tooltip="Miles per gallon of a comparable gasoline vehicle. We've assumed a fuel economy of 28.0 miles per gallon for a similar car.">Comparison Car MPG:</label>
+                        <input type="number" id="comparisonCarMPG" name="comparisonCarMPG" value="28.0" required>
                     </div>
                 </div>
             </form>
@@ -114,12 +115,22 @@
             const referralCredit = parseFloat(document.getElementById('referralCredit').value).toFixed(2);
             const totalCredits = (parseFloat(federalCredit) + parseFloat(referralCredit)).toFixed(2);
 
+            const electricityCost = parseFloat(document.getElementById('electricityCost').value).toFixed(2);
+            const model3Consumption = parseFloat(document.getElementById('model3Consumption').value).toFixed(2);
+            const comparisonCarMPG = parseFloat(document.getElementById('comparisonCarMPG').value).toFixed(2);
+
+            const totalTeslaElectricityCost = (milesPerYear * years * model3Consumption / 100) * electricityCost;
+            const totalComparisonCarGasCost = (milesPerYear * years) / comparisonCarMPG * gasPrice;
+
+            const savings = totalComparisonCarGasCost - totalTeslaElectricityCost;
+
             document.getElementById('basePrice').textContent = "$" + carPrice;
             document.getElementById('yearsHighlight').textContent = years + " years";
             document.getElementById('milesYearHighlight').textContent = milesPerYear + " miles";
             document.getElementById('gasPriceHighlight').textContent = "$" + gasPrice;
             document.getElementById('mpgHighlight').textContent = mpg + " MPG";
             document.getElementById('totalCreditsHighlight').textContent = "$" + Math.abs(totalCredits);
+            document.getElementById('initialFuelSavings').textContent = savings.toFixed(2);
         }
 
         function calculateTotal() {
@@ -159,12 +170,14 @@
             }
         }
 
-        document.getElementById('tesla-calculator').addEventListener('input', function() {
-            updateStatement();
-            calculateTotal();
-        });
-
         window.onload = function() {
+            const inputs = document.querySelectorAll('input, select');
+            for (let input of inputs) {
+                input.addEventListener('input', function() {
+                    updateStatement();
+                    calculateTotal();
+                });
+            }
             updateStatement();
             calculateTotal();
         }
