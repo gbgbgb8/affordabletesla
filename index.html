@@ -55,37 +55,51 @@
                         <label for="milesPerYear" data-tooltip="How many miles will you drive per year? National average is around 14-15K per year.">Miles/Year:</label>
                         <input type="number" id="milesPerYear" name="milesPerYear" value="15000" required>
                         <label for="electricityCost" data-tooltip="This is the cost of electricity per kilowatt-hour. National average is around $0.16.">Electricity Cost ($/kWh):</label>
-                        <input type="number" step="0.01" id="electricityCost" name="electricityCost" value="0.16" required>
+                        <input type="number" id="electricityCost" name="electricityCost" value="0.16" step="0.01" required>
                         <label for="gasPrice" data-tooltip="How much is a gallon of gas in your area?">Gas/Gallon:</label>
-                        <input type="number" id="gasPrice" name="gasPrice" value="3.90" required>
-                        <label for="mpg" data-tooltip="The national average MPG is around 28 MPG for a comparable gasoline vehicle. Adjust as needed.">Comparison Car MPG:</label>
+                        <input type="number" id="gasPrice" name="gasPrice" value="5.29" required>
+                        <label for="mpg" data-tooltip="The national average MPG for comparison cars is around 28 MPG. Adjust based on the car you're comparing against.">Comparison Car MPG:</label>
                         <input type="number" id="mpg" name="mpg" value="28" required>
                     </div>
                 </div>
             </form>
         </section>
         <section>
-            <div class="summary">
-                <h2>Quick Summary</h2>
+            <div class="detailedBreakdown">
+                <h2>Detailed Breakdown</h2>
                 <table>
                     <thead>
                         <tr>
                             <th scope="col">Description</th>
                             <th scope="col">Amount</th>
+                            <th scope="col">Progress</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Initial Cost:</td>
+                            <td>Initial Vehicle Cost:</td>
                             <td><span id="initialCost">-</span></td>
+                            <td><progress id="initialCostProgress" value="0" max="100"></progress></td>
                         </tr>
                         <tr>
-                            <td>Electricity and Fuel Savings:</td>
-                            <td><span id="initialFuelSavings">-</span></td>
+                            <td>Electricity Savings:</td>
+                            <td><span id="electricitySavings">-</span></td>
+                            <td><progress id="electricitySavingsProgress" value="0" max="100"></progress></td>
+                        </tr>
+                        <tr>
+                            <td>Fuel Savings:</td>
+                            <td><span id="fuelSavings">-</span></td>
+                            <td><progress id="fuelSavingsProgress" value="0" max="100"></progress></td>
+                        </tr>
+                        <tr>
+                            <td>Total Credits:</td>
+                            <td><span id="credits">-</span></td>
+                            <td><progress id="creditsProgress" value="0" max="100"></progress></td>
                         </tr>
                         <tr>
                             <td>Final Cost:</td>
                             <td><kbd id="resultingCost">-</kbd></td>
+                            <td><progress id="resultingCostProgress" value="0" max="100"></progress></td>
                         </tr>
                     </tbody>
                 </table>
@@ -115,8 +129,8 @@
             document.getElementById('basePrice').textContent = "$" + carPrice;
             document.getElementById('yearsHighlight').textContent = years + " years";
             document.getElementById('milesYearHighlight').textContent = milesPerYear + " miles";
-            document.getElementById('electricityCostHighlight').textContent = "$" + electricityCost;
-            document.getElementById('gasPriceHighlight').textContent = "$" + gasPrice;
+            document.getElementById('electricityCostHighlight').textContent = "$" + electricityCost + "/kWh";
+            document.getElementById('gasPriceHighlight').textContent = "$" + gasPrice + "/gallon";
             document.getElementById('mpgHighlight').textContent = mpg + " MPG";
             document.getElementById('totalCreditsHighlight').textContent = "$" + Math.abs(totalCredits);
         }
@@ -124,9 +138,12 @@
         function calculateTotal() {
             const initialCost = calculateAffordability();
             const initialFuelSavings = calculateFuelSavings();
-            const resultingCost = initialCost - initialFuelSavings;
+            const totalCredits = calculateCredits();
+            const resultingCost = initialCost - initialFuelSavings - totalCredits;
             document.getElementById('initialCost').textContent = "$" + initialCost.toFixed(2);
-            document.getElementById('initialFuelSavings').textContent = "-$" + initialFuelSavings.toFixed(2);
+            document.getElementById('electricitySavings').textContent = "-$" + (initialFuelSavings * 0.25).toFixed(2); // assuming up to 4 times lower cost for Tesla
+            document.getElementById('fuelSavings').textContent = "-$" + (initialFuelSavings * 0.75).toFixed(2); // remaining fuel savings
+            document.getElementById('credits').textContent = "-$" + totalCredits.toFixed(2);
             document.getElementById('resultingCost').textContent = "$" + resultingCost.toFixed(2);
             document.getElementById('totalValue').textContent = "$" + resultingCost.toFixed(2);
         }
@@ -142,20 +159,17 @@
         function calculateFuelSavings() {
             const years = parseFloat(document.getElementById('years').value);
             const milesPerYear = parseFloat(document.getElementById('milesPerYear').value);
-            const electricityCost = parseFloat(document.getElementById('electricityCost').value);
             const gasPrice = parseFloat(document.getElementById('gasPrice').value);
             const mpg = parseFloat(document.getElementById('mpg').value);
             const totalMiles = years * milesPerYear;
-            
-            // Tesla fuel savings
-            const teslaKWhUsed = totalMiles / (100 / 25); // 25 kWh/100mi
-            const teslaFuelCost = teslaKWhUsed * electricityCost;
-            
-            // Comparison car fuel cost
             const totalGallons = totalMiles / mpg;
-            const comparisonCarFuelCost = totalGallons * gasPrice;
+            return totalGallons * gasPrice;
+        }
 
-            return comparisonCarFuelCost - teslaFuelCost;
+        function calculateCredits() {
+            const federalCredit = parseFloat(document.getElementById('federalCredit').value);
+            const referralCredit = parseFloat(document.getElementById('referralCredit').value);
+            return federalCredit + referralCredit;
         }
 
         function toggleTheme() {
