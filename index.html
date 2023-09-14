@@ -99,7 +99,7 @@
             const fuelSavings = calculateFuelSavings();
             const electricityCost = calculateElectricityCost();
             const totalCredits = calculateCredits();
-            const resultingCost = initialCost - fuelSavings - electricityCost + totalCredits;
+            const resultingCost = initialCost - fuelSavings + electricityCost - totalCredits;
 
             document.getElementById('totalValue').textContent = "$" + resultingCost.toFixed(2);
         }
@@ -109,7 +109,7 @@
             const federalCredit = parseFloat(document.getElementById('federalCredit').value);
             const referralCredit = parseFloat(document.getElementById('referralCredit').value);
             const destinationFee = parseFloat(document.getElementById('destinationFee').value);
-            return carPrice + federalCredit + referralCredit + destinationFee;
+            return carPrice - federalCredit - referralCredit + destinationFee;
         }
 
         function calculateFuelSavings() {
@@ -126,7 +126,7 @@
             const years = parseFloat(document.getElementById('years').value);
             const milesPerYear = parseFloat(document.getElementById('milesPerYear').value);
             const electricityCost = parseFloat(document.getElementById('electricityCost').value);
-            const teslaMileKwh = 25.0 / 100; // Tesla consumption rate 25.0 kWh/100mi
+            const teslaMileKwh = 25.0 / 100;
             const totalMiles = years * milesPerYear;
             const totalKWh = totalMiles * teslaMileKwh;
             return totalKWh * electricityCost;
