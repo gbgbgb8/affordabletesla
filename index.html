@@ -12,6 +12,10 @@
             right: 20px;
             bottom: 20px;
         }
+
+        #totalValue {
+            font-size: 1.2em;
+        }
     </style>
 </head>
 
@@ -19,7 +23,7 @@
     <main class="container">
         <header>
             <h1>Tesla Affordability Calculator</h1>
-            <p id="summaryStatement">The total cost of this Tesla after <span id="yearsValue">X</span> years of fuel savings and <span id="totalCreditsValue">Y</span> Federal/State/Referral credits is: <span id="totalValue">Z</span></p>
+            <p id="summaryStatement">With a base vehicle price of <mark id="basePrice">X</mark>, after <mark id="yearsHighlight">Y</mark> years of fuel savings, considering an average of <mark id="milesYearHighlight">Z</mark> miles per year, gas price of <mark id="gasPriceHighlight">A</mark> per gallon, and an average MPG of <mark id="mpgHighlight">B</mark>, along with <mark id="totalCreditsHighlight">C</mark> in Federal/State/Referral credits, the total cost of this Tesla is: <span id="totalValue">D</span></p>
         </header>
         <section>
             <form id="tesla-calculator">
@@ -96,25 +100,30 @@
     </div>
     <script>
         function updateStatement() {
+            const carPrice = parseFloat(document.getElementById('carPrice').value).toFixed(2);
             const years = document.getElementById('years').value;
-            const federalCredit = document.getElementById('federalCredit').value;
-            const referralCredit = document.getElementById('referralCredit').value;
-            const totalCredits = parseFloat(federalCredit) + parseFloat(referralCredit);
+            const milesPerYear = parseFloat(document.getElementById('milesPerYear').value).toFixed(2);
+            const gasPrice = parseFloat(document.getElementById('gasPrice').value).toFixed(2);
+            const mpg = parseFloat(document.getElementById('mpg').value).toFixed(2);
+            const federalCredit = parseFloat(document.getElementById('federalCredit').value).toFixed(2);
+            const referralCredit = parseFloat(document.getElementById('referralCredit').value).toFixed(2);
+            const totalCredits = (parseFloat(federalCredit) + parseFloat(referralCredit)).toFixed(2);
 
-            document.getElementById('yearsValue').textContent = years;
-            document.getElementById('totalCreditsValue').textContent = "$" + Math.abs(totalCredits).toFixed(2);
+            document.getElementById('basePrice').textContent = "$" + carPrice;
+            document.getElementById('yearsHighlight').textContent = years + " years";
+            document.getElementById('milesYearHighlight').textContent = milesPerYear + " miles";
+            document.getElementById('gasPriceHighlight').textContent = "$" + gasPrice;
+            document.getElementById('mpgHighlight').textContent = mpg + " MPG";
+            document.getElementById('totalCreditsHighlight').textContent = "$" + Math.abs(totalCredits);
         }
 
         function calculateTotal() {
-            updateStatement();
-
             const initialCost = calculateAffordability();
             const initialFuelSavings = calculateFuelSavings();
             const resultingCost = initialCost - initialFuelSavings;
-
-            document.getElementById('initialCost').innerText = "$" + initialCost.toFixed(2);
-            document.getElementById('initialFuelSavings').innerText = "$" + initialFuelSavings.toFixed(2);
-            document.getElementById('resultingCost').innerText = "$" + resultingCost.toFixed(2);
+            document.getElementById('initialCost').textContent = "$" + initialCost.toFixed(2);
+            document.getElementById('initialFuelSavings').textContent = "-$" + initialFuelSavings.toFixed(2);
+            document.getElementById('resultingCost').textContent = "$" + resultingCost.toFixed(2);
             document.getElementById('totalValue').textContent = "$" + resultingCost.toFixed(2);
         }
 
@@ -123,7 +132,6 @@
             const federalCredit = parseFloat(document.getElementById('federalCredit').value);
             const referralCredit = parseFloat(document.getElementById('referralCredit').value);
             const destinationFee = parseFloat(document.getElementById('destinationFee').value);
-
             return carPrice + federalCredit + referralCredit + destinationFee;
         }
 
@@ -132,10 +140,8 @@
             const milesPerYear = parseFloat(document.getElementById('milesPerYear').value);
             const gasPrice = parseFloat(document.getElementById('gasPrice').value);
             const mpg = parseFloat(document.getElementById('mpg').value);
-
             const totalMiles = years * milesPerYear;
             const totalGallons = totalMiles / mpg;
-
             return totalGallons * gasPrice;
         }
 
