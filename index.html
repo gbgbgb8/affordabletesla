@@ -16,14 +16,6 @@
         #totalValue {
             font-size: 1.2em;
         }
-
-        #results {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            display: none;
-        }
     </style>
 </head>
 
@@ -31,17 +23,46 @@
     <main class="container">
         <header>
             <h1>Tesla Affordability Calculator</h1>
+            <p id="summaryStatement">With a base vehicle price of <mark id="basePrice">X</mark>, after <mark id="yearsHighlight">Y</mark> years of fuel savings, considering an average of <mark id="milesYearHighlight">Z</mark> miles per year, electricity cost of <mark id="electricityCostHighlight">A</mark> per kWh, gas price of <mark id="gasPriceHighlight">B</mark> per gallon, and a comparison car MPG of <mark id="mpgHighlight">C</mark> MPG, along with <mark id="totalCreditsHighlight">D</mark> in Federal/State/Referral credits, the total cost of this Tesla is: <kbd id="totalValue">E</kbd></p>
         </header>
         <section>
             <form id="tesla-calculator">
                 <div class="grid">
-                    <!-- Tesla Calculator Fields -->
+                    <div>
+                        <label for="carPrice" data-tooltip="This is the base vehicle price for the Tesla Model 3. It's made in America and is one of the safest cars available.">Base Vehicle Price:</label>
+                        <input type="number" id="carPrice" name="carPrice" value="40240" required>
+                        <label for="federalCredit" data-tooltip="Customers who take delivery of a qualified new Tesla and meet all federal requirements are eligible for a tax credit up to $7,500. Reductions likely after Dec 31.">Federal Credit:</label>
+                        <input type="number" id="federalCredit" name="federalCredit" value="-7500" required>
+                        <label for="referralCredit" data-tooltip="Order Tesla products through a Referral Link to earn up to $500 off your order, plus 3 months of Full Self-Driving Capability">Referral Credit:</label>
+                        <input type="number" id="referralCredit" name="referralCredit" value="-500" required>
+                        <label for="destinationFee" data-tooltip="Taxes and fees listed are estimates only, subject to change, and may not be accurate to you, depending on factors like your registration location. Your applicable taxes and fees will be confirmed for you closer to time of delivery.">Destination Fee:</label>
+                        <input type="number" id="destinationFee" name="destinationFee" value="1390" required>
+                    </div>
+                    <div>
+                        <label for="years" data-tooltip="Average duration of ownership of a new vehicle is 8 years. How long do you think you will own this car?">Years:</label>
+                        <select id="years" name="years">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8" selected>8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                        <label for="milesPerYear" data-tooltip="How many miles will you drive per year? National average is around 14-15K per year.">Miles/Year:</label>
+                        <input type="number" id="milesPerYear" name="milesPerYear" value="15000" required>
+                        <label for="electricityCost" data-tooltip="The national average for residential electricity. Adjust based on your local rates.">Electricity Cost ($/kWh):</label>
+                        <input type="number" id="electricityCost" name="electricityCost" value="0.16" step="0.01" required>
+                        <label for="gasPrice" data-tooltip="How much is a gallon of gas in your area? By switching to a Tesla, you can avoid these costs and enjoy the convenience of charging at home.">Gas/Gallon:</label>
+                        <input type="number" id="gasPrice" name="gasPrice" value="5.29" required>
+                        <label for="mpg" data-tooltip="The national average MPG for comparison cars is around 28 MPG. Adjust based on the car you're comparing against.">Comparison Car MPG:</label>
+                        <input type="number" id="mpg" name="mpg" value="28" required>
+                    </div>
                 </div>
             </form>
-            <button onclick="calculateAndUpdate()">Calculate</button>
-            <div id="results">
-                <p id="summaryStatement">With a base vehicle price of <mark id="basePrice">X</mark>, after <mark id="yearsHighlight">Y</mark> years of fuel savings...</p>
-            </div>
         </section>
     </main>
     <div class="theme-switcher">
@@ -83,12 +104,6 @@
             document.getElementById('totalValue').textContent = "$" + resultingCost.toFixed(2);
         }
 
-        function calculateAndUpdate() {
-            calculateTotal();
-            updateStatement();
-            document.getElementById('results').style.display = 'block';
-        }
-
         function calculateAffordability() {
             const carPrice = parseFloat(document.getElementById('carPrice').value);
             const federalCredit = parseFloat(document.getElementById('federalCredit').value);
@@ -120,7 +135,7 @@
         function calculateCredits() {
             const federalCredit = parseFloat(document.getElementById('federalCredit').value);
             const referralCredit = parseFloat(document.getElementById('referralCredit').value);
-            return Math.min(federalCredit, 0) + Math.min(referralCredit, 0);
+            return Math.min(federalCredit, 0) + Math.min(referralCredit, 0);  // Ensuring credits are negative.
         }
 
         function toggleTheme() {
@@ -136,10 +151,12 @@
             const inputs = document.querySelectorAll('input, select');
             for (let input of inputs) {
                 input.addEventListener('input', function() {
-                    calculateAndUpdate();
+                    updateStatement();
+                    calculateTotal();
                 });
             }
-            calculateAndUpdate();
+            updateStatement();
+            calculateTotal();
         }
     </script>
 </body>
