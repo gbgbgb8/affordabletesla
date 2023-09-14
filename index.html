@@ -16,6 +16,11 @@
         #totalValue {
             font-size: 1.2em;
         }
+
+        label {
+            display: block;
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 
@@ -23,7 +28,7 @@
     <main class="container">
         <header>
             <h1>Tesla Affordability Calculator</h1>
-            <p id="summaryStatement">With a base vehicle price of <mark id="basePrice">X</mark>, after <mark id="yearsHighlight">Y</mark> of fuel savings, considering an average of <mark id="milesYearHighlight">Z</mark> per year, gas price of <mark id="gasPriceHighlight">A</mark> per gallon, and an average MPG of <mark id="mpgHighlight">B</mark>, along with <mark id="totalCreditsHighlight">C</mark> in Federal/State/Referral credits, the total cost of this Tesla is: <kbd id="totalValue">D</kbd></p>
+            <p id="summaryStatement">With a base vehicle price of <mark id="basePrice">X</mark>, after <mark id="yearsHighlight">Y</mark> of fuel savings, considering an average of <mark id="milesYearHighlight">Z</mark> miles per year, gas price of <mark id="gasPriceHighlight">A</mark> per gallon, and an average MPG of <mark id="mpgHighlight">B</mark>, along with <mark id="totalCreditsHighlight">C</mark> in Federal/State/Referral credits, the total cost of this Tesla is: <kbd id="totalValue">D</kbd></p>
         </header>
         <section>
             <form id="tesla-calculator">
@@ -154,14 +159,12 @@
             }
         }
 
+        document.getElementById('tesla-calculator').addEventListener('input', function() {
+            updateStatement();
+            calculateTotal();
+        });
+
         window.onload = function() {
-            const inputs = document.querySelectorAll('input, select');
-            for (let input of inputs) {
-                input.addEventListener('input', function() {
-                    updateStatement();
-                    calculateTotal();
-                });
-            }
             updateStatement();
             calculateTotal();
         }
