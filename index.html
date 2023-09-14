@@ -23,7 +23,7 @@
     <main class="container">
         <header>
             <h1>Tesla Affordability Calculator</h1>
-            <p id="summaryStatement">With a base vehicle price of <mark id="basePrice">X</mark>, after <mark id="yearsHighlight">Y</mark> of fuel savings, considering an average of <mark id="milesYearHighlight">Z</mark> per year, electricity cost of <mark id="electricityCostHighlight">A</mark> per kWh, gas price of <mark id="gasPriceHighlight">B</mark> per gallon, and a comparison car MPG of <mark id="mpgHighlight">C</mark>, along with <mark id="totalCreditsHighlight">D</mark> in Federal/State/Referral credits, the total cost of this Tesla is: <kbd id="totalValue">E</kbd></p>
+            <p id="summaryStatement">With a base vehicle price of <mark id="basePrice">X</mark>, after <mark id="yearsHighlight">Y</mark> years of fuel savings, considering an average of <mark id="milesYearHighlight">Z</mark> miles per year, electricity cost of <mark id="electricityCostHighlight">A</mark> per kWh, gas price of <mark id="gasPriceHighlight">B</mark> per gallon, and a comparison car MPG of <mark id="mpgHighlight">C</mark> MPG, along with <mark id="totalCreditsHighlight">D</mark> in Federal/State/Referral credits, the total cost of this Tesla is: <kbd id="totalValue">E</kbd></p>
         </header>
         <section>
             <form id="tesla-calculator">
@@ -99,7 +99,7 @@
             const fuelSavings = calculateFuelSavings();
             const electricityCost = calculateElectricityCost();
             const totalCredits = calculateCredits();
-            const resultingCost = initialCost - fuelSavings + electricityCost + totalCredits;
+            const resultingCost = initialCost + electricityCost - fuelSavings + totalCredits;
 
             document.getElementById('totalValue').textContent = "$" + resultingCost.toFixed(2);
         }
@@ -135,7 +135,7 @@
         function calculateCredits() {
             const federalCredit = parseFloat(document.getElementById('federalCredit').value);
             const referralCredit = parseFloat(document.getElementById('referralCredit').value);
-            return federalCredit + referralCredit;
+            return Math.min(federalCredit, 0) + Math.min(referralCredit, 0);  // Ensuring credits are negative.
         }
 
         function toggleTheme() {
