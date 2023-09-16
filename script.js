@@ -1,38 +1,23 @@
 function loadStaticContent() {
-    fetch('static_content.json')
+    fetch('whytesla.json')
         .then(response => response.json())
         .then(data => {
-            document.getElementById("headerTitle").textContent = data.headerTitle;
+            document.getElementById("whytesla-title").textContent = "Why Tesla?";
+            document.getElementById("whytesla-content").innerHTML = marked(data.text);
 
-            const statement = document.getElementById("summaryStatement");
-            statement.childNodes[0].textContent = data.summaryIntro + " ";
-            statement.childNodes[2].textContent = " " + data.summaryAfterPrice + " ";
-            statement.childNodes[4].textContent = " " + data.summaryYears + " ";
-            statement.childNodes[6].textContent = " " + data.summaryElectricityCost + " ";
-            statement.childNodes[8].textContent = " " + data.summaryGasPrice + " ";
-            statement.childNodes[10].textContent = " " + data.summaryMPG + " ";
-            statement.childNodes[12].textContent = " " + data.summaryCredits + " ";
+            document.getElementById("headerTitle").textContent = "Tesla Affordability Calculator, 2023";
 
             for (let tooltip in data.tooltips) {
                 document.getElementById("tooltip-" + tooltip).setAttribute("data-tooltip", data.tooltips[tooltip]);
             }
 
-            const glossarySection = document.querySelector("article ul");
+            const glossarySection = document.getElementById("glossary");
             glossarySection.innerHTML = "";
             for (let term in data.glossary) {
                 let listItem = document.createElement("li");
                 listItem.innerHTML = `<strong>${term}:</strong> ${data.glossary[term]}`;
                 glossarySection.appendChild(listItem);
             }
-        });
-}
-
-function loadBlogPost() {
-    fetch('whytesla.json')
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('whytesla-title').textContent = data.title;
-            document.getElementById('whytesla-content').textContent = data.content;
         });
 }
 
@@ -48,7 +33,7 @@ function updateStatement() {
     const totalCredits = (parseFloat(federalCredit) + parseFloat(referralCredit)).toFixed(2);
 
     document.getElementById("basePrice").textContent = "$" + carPrice;
-    document.getElementById("yearsHighlight").textContent = years + " years";
+    document.getElementById("yearsHighlight").textContent = years;
     document.getElementById("milesYearHighlight").textContent = milesPerYear + " miles";
     document.getElementById("electricityCostHighlight").textContent = "$" + electricityCost;
     document.getElementById("gasPriceHighlight").textContent = "$" + gasPrice;
@@ -109,17 +94,6 @@ function toggleTheme() {
     }
 }
 
-function loadBlogContent() {
-    fetch('whytesla.md')
-        .then(response => response.text())
-        .then(data => {
-            const md = window.markdownit();
-            const result = md.render(data);
-            document.getElementById("whytesla-content").innerHTML = result;
-        });
-}
-
-
 window.onload = function () {
     const inputs = document.querySelectorAll("input, select");
     for (let input of inputs) {
@@ -129,7 +103,6 @@ window.onload = function () {
         });
     }
     loadStaticContent();
-    loadBlogContent();
     updateStatement();
     calculateTotal();
 };
