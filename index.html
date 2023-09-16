@@ -10,10 +10,18 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.1/markdown-it.min.js" integrity="sha512-SYfDUYPg5xspsG6OOpXU366G8SZsdHOhqk/icdrYJ2E/WKZxPxze7d2HD3AyXpT7U22PZ5y74xRpqZ6A2bJ+kQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
-        .theme-switcher {
+        .theme-switcher, .shop-button {
             position: fixed;
             right: 20px;
+            z-index: 999;
+        }
+
+        .theme-switcher {
             bottom: 20px;
+        }
+
+        .shop-button {
+            top: 20px;
         }
 
         #totalValue {
@@ -87,6 +95,9 @@
       <header>Glossary</header>
       <ul id="glossary"></ul>
     </article>
+    <div class="shop-button">
+        <a href="https://ts.la/garrett93941" role="button" class="outline">Shop Tesla.com</a>
+    </div>
     <div class="theme-switcher">
         <fieldset>
             <label>
