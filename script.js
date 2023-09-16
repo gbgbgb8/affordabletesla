@@ -109,6 +109,17 @@ function toggleTheme() {
     }
 }
 
+function loadBlogContent() {
+    fetch('whytesla.md')
+        .then(response => response.text())
+        .then(data => {
+            const md = window.markdownit();
+            const result = md.render(data);
+            document.getElementById("whytesla-content").innerHTML = result;
+        });
+}
+
+
 window.onload = function () {
     const inputs = document.querySelectorAll("input, select");
     for (let input of inputs) {
@@ -118,7 +129,7 @@ window.onload = function () {
         });
     }
     loadStaticContent();
-    loadBlogPost();
+    loadBlogContent();
     updateStatement();
     calculateTotal();
 };
