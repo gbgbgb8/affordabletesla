@@ -1,21 +1,25 @@
 function loadStaticContent() {
-    fetch('whytesla.json')
-        .then(response => response.json())
+    fetch('whytesla.md')
+        .then(response => response.text())
         .then(data => {
             document.getElementById("whytesla-title").textContent = "Why Tesla?";
-            document.getElementById("whytesla-content").innerHTML = marked(data.text);
+            document.getElementById("whytesla-content").innerHTML = marked(data);
 
-            document.getElementById("headerTitle").textContent = "Tesla Affordability Calculator, 2023";
+            return fetch('static_content.json');
+        })
+        .then(response => response.json())
+        .then(jsonData => {
+            document.getElementById("headerTitle").textContent = jsonData.headerTitle;
 
-            for (let tooltip in data.tooltips) {
-                document.getElementById("tooltip-" + tooltip).setAttribute("data-tooltip", data.tooltips[tooltip]);
+            for (let tooltip in jsonData.tooltips) {
+                document.getElementById("tooltip-" + tooltip).setAttribute("data-tooltip", jsonData.tooltips[tooltip]);
             }
 
             const glossarySection = document.getElementById("glossary");
             glossarySection.innerHTML = "";
-            for (let term in data.glossary) {
+            for (let term in jsonData.glossary) {
                 let listItem = document.createElement("li");
-                listItem.innerHTML = `<strong>${term}:</strong> ${data.glossary[term]}`;
+                listItem.innerHTML = `<strong>${term}:</strong> ${jsonData.glossary[term]}`;
                 glossarySection.appendChild(listItem);
             }
         });
