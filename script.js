@@ -3,7 +3,8 @@ function loadStaticContent() {
         .then(response => response.text())
         .then(data => {
             document.getElementById("whytesla-title").textContent = "Why Tesla?";
-            document.getElementById("whytesla-content").innerHTML = marked(data);
+            document.getElementById("whytesla-content").innerHTML = markdownit().render(data);
+
 
             return fetch('static_content.json');
         })
