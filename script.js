@@ -16,10 +16,16 @@ function loadStaticContent() {
             for (let tooltip in data.tooltips) {
                 document.getElementById("tooltip-" + tooltip).setAttribute("data-tooltip", data.tooltips[tooltip]);
             }
+
+            const glossarySection = document.querySelector("article ul");
+            glossarySection.innerHTML = "";
+            for (let term in data.glossary) {
+                let listItem = document.createElement("li");
+                listItem.innerHTML = `<strong>${term}:</strong> ${data.glossary[term]}`;
+                glossarySection.appendChild(listItem);
+            }
         });
 }
-
-loadStaticContent();
 
 function updateStatement() {
     const carPrice = parseFloat(document.getElementById("carPrice").value).toFixed(2);
@@ -33,8 +39,8 @@ function updateStatement() {
     const totalCredits = (parseFloat(federalCredit) + parseFloat(referralCredit)).toFixed(2);
 
     document.getElementById("basePrice").textContent = "$" + carPrice;
-    document.getElementById("yearsHighlight").textContent = years;
-    document.getElementById("milesYearHighlight").textContent = milesPerYear;
+    document.getElementById("yearsHighlight").textContent = years + " years";
+    document.getElementById("milesYearHighlight").textContent = milesPerYear + " miles";
     document.getElementById("electricityCostHighlight").textContent = "$" + electricityCost;
     document.getElementById("gasPriceHighlight").textContent = "$" + gasPrice;
     document.getElementById("mpgHighlight").textContent = mpg + " MPG";
@@ -102,6 +108,7 @@ window.onload = function () {
             calculateTotal();
         });
     }
+    loadStaticContent();
     updateStatement();
     calculateTotal();
 };

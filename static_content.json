@@ -1,11 +1,11 @@
 {
-    "headerTitle": "Tesla Affordability Calculator",
+    "headerTitle": "Tesla Affordability Calculator, 2023",
     "summaryIntro": "With a base vehicle price of",
     "summaryAfterPrice": "after",
     "summaryYears": "years of fuel savings, considering an average of",
-    "summaryElectricityCost": "miles per year, electricity cost of",
-    "summaryGasPrice": "per kWh, gas price of",
-    "summaryMPG": "per gallon, and a comparison car MPG of",
+    "summaryElectricityCost": "per kWh, electricity cost of",
+    "summaryGasPrice": "gas price of",
+    "summaryMPG": "and a comparison car MPG of",
     "summaryCredits": "along with in Federal/State/Referral credits, the total cost of this Tesla is:",
     "tooltips": {
       "carPrice": "This is the base vehicle price for the Tesla Model 3. It's made in America and is one of the safest cars available.",
@@ -17,6 +17,17 @@
       "electricityCost": "The national average for residential electricity. Adjust based on your local rates.",
       "gasPrice": "How much is a gallon of gas in your area? By switching to a Tesla, you can avoid these costs and enjoy the convenience of charging at home.",
       "mpg": "The national average MPG for comparison cars is around 28 MPG. Adjust based on the car you're comparing against."
+    },
+    "glossary": {
+      "Base Vehicle Price": "This is the base vehicle price for the Tesla Model 3. It's made in America and is one of the safest cars available.",
+      "Federal Credit": "Customers who take delivery of a qualified new Tesla and meet all federal requirements are eligible for a tax credit up to $7,500. Reductions likely after Dec 31.",
+      "Referral Credit": "Order Tesla products through a Referral Link to earn up to $500 off your order, plus 3 months of Full Self-Driving Capability.",
+      "Destination Fee": "Taxes and fees listed are estimates only, subject to change, and may not be accurate to you, depending on factors like your registration location. Your applicable taxes and fees will be confirmed for you closer to time of delivery.",
+      "Years": "Average duration of ownership of a new vehicle is 8 years. How long do you think you will own this car?",
+      "Miles/Year": "How many miles will you drive per year? National average is around 14-15K per year.",
+      "Electricity Cost ($/kWh)": "The national average for residential electricity. Adjust based on your local rates.",
+      "Gas/Gallon": "How much is a gallon of gas in your area? By switching to a Tesla, you can avoid these costs and enjoy the convenience of charging at home.",
+      "Comparison Car MPG": "The national average MPG for comparison cars is around 28 MPG. Adjust based on the car you're comparing against."
     }
   }
   
