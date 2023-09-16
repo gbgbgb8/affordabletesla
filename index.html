@@ -5,9 +5,9 @@
     <meta charset="UTF-8" />
     <title>Tesla is Affordable!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/picocss/1.5.10/pico.min.css"
-        integrity="sha512-R4D8tIuJws1QxZAVEpeFxtKEw4iab4HuyVzofpiO19VmlBhXW5qdTCmD/+yYQ+nviYUgS2EywDnoNTaj+lpUfA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/beercss@3.3.5/dist/cdn/beer.min.css" rel="stylesheet">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.3.5/dist/cdn/beer.min.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/material-dynamic-colors@1.0.1/dist/cdn/material-dynamic-colors.min.js"></script>
     <style>
         .theme-switcher {
             position: fixed;
@@ -24,34 +24,34 @@
 <body>
     <main class="container">
         <header>
-            <p id="headerTitle">Tesla Affordability Calculator, 2023</p>
-            <p id="summaryStatement">
-              With a base vehicle price of <mark id="basePrice">X</mark>, after
-              <mark id="yearsHighlight">Y</mark> years of fuel savings, considering an average of
-              <mark id="milesYearHighlight">Z</mark> miles per year, electricity cost of
-              <mark id="electricityCostHighlight">A</mark> per kWh, gas price of
-              <mark id="gasPriceHighlight">B</mark> per gallon, and a comparison car MPG of
-              <mark id="mpgHighlight">C</mark> MPG, along with <mark id="totalCreditsHighlight">D</mark> in
-              Federal/State/Referral credits, the total cost of this Tesla is:
-              <kbd id="totalValue">E</kbd>
-          </p>          
+            <p id="headerTitle" class="h1">Tesla Affordability Calculator, 2023</p>
+            <p id="summaryStatement" class="p1">
+                With a base vehicle price of <mark id="basePrice">X</mark>, after
+                <mark id="yearsHighlight">Y</mark> of fuel savings, considering an average of
+                <mark id="milesYearHighlight">Z</mark> per year, electricity cost of
+                <mark id="electricityCostHighlight">A</mark> per kWh, gas price of
+                <mark id="gasPriceHighlight">B</mark> per gallon, and a comparison car MPG of
+                <mark id="mpgHighlight">C</mark> MPG, along with <mark id="totalCreditsHighlight">D</mark> in
+                Federal/State/Referral credits, the total cost of this Tesla is:
+                <kbd id="totalValue">E</kbd>
+            </p>
         </header>
         <section>
             <form id="tesla-calculator">
                 <div class="grid">
                     <div>
-                        <label for="carPrice" data-tooltip="" id="tooltip-carPrice">Base Vehicle Price:</label>
-                        <input type="number" id="carPrice" name="carPrice" value="40240" required />
-                        <label for="federalCredit" data-tooltip="" id="tooltip-federalCredit">Federal Credit:</label>
-                        <input type="number" id="federalCredit" name="federalCredit" value="-7500" required />
-                        <label for="referralCredit" data-tooltip="" id="tooltip-referralCredit">Referral Credit:</label>
-                        <input type="number" id="referralCredit" name="referralCredit" value="-500" required />
-                        <label for="destinationFee" data-tooltip="" id="tooltip-destinationFee">Destination Fee:</label>
-                        <input type="number" id="destinationFee" name="destinationFee" value="1390" required />
+                        <label for="carPrice" data-tooltip="" id="tooltip-carPrice" class="label">Base Vehicle Price:</label>
+                        <input type="number" id="carPrice" name="carPrice" value="40240" required class="input" />
+                        <label for="federalCredit" data-tooltip="" id="tooltip-federalCredit" class="label">Federal Credit:</label>
+                        <input type="number" id="federalCredit" name="federalCredit" value="-7500" required class="input" />
+                        <label for="referralCredit" data-tooltip="" id="tooltip-referralCredit" class="label">Referral Credit:</label>
+                        <input type="number" id="referralCredit" name="referralCredit" value="-500" required class="input" />
+                        <label for="destinationFee" data-tooltip="" id="tooltip-destinationFee" class="label">Destination Fee:</label>
+                        <input type="number" id="destinationFee" name="destinationFee" value="1390" required class="input" />
                     </div>
                     <div>
-                        <label for="years" data-tooltip="" id="tooltip-years">Years:</label>
-                        <select id="years" name="years">
+                        <label for="years" data-tooltip="" id="tooltip-years" class="label">Years:</label>
+                        <select id="years" name="years" class="select">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -63,40 +63,42 @@
                             <option value="9">9</option>
                             <option value="10">10</option>
                         </select>
-                        <label for="milesPerYear" data-tooltip="" id="tooltip-milesPerYear">Miles/Year:</label>
-                        <input type="number" id="milesPerYear" name="milesPerYear" value="15000" required />
-                        <label for="electricityCost" data-tooltip="" id="tooltip-electricityCost">Electricity Cost
+                        <label for="milesPerYear" data-tooltip="" id="tooltip-milesPerYear" class="label">Miles/Year:</label>
+                        <input type="number" id="milesPerYear" name="milesPerYear" value="15000" required class="input" />
+                        <label for="electricityCost" data-tooltip="" id="tooltip-electricityCost" class="label">Electricity Cost
                             ($/kWh):</label>
                         <input type="number" id="electricityCost" name="electricityCost" value="0.16" step="0.01"
-                            required />
-                        <label for="gasPrice" data-tooltip="" id="tooltip-gasPrice">Gas/Gallon:</label>
-                        <input type="number" id="gasPrice" name="gasPrice" value="5.29" required />
-                        <label for="mpg" data-tooltip="" id="tooltip-mpg">Comparison Car MPG:</label>
-                        <input type="number" id="mpg" name="mpg" value="28" required />
+                            required class="input" />
+                        <label for="gasPrice" data-tooltip="" id="tooltip-gasPrice" class="label">Gas/Gallon:</label>
+                        <input type="number" id="gasPrice" name="gasPrice" value="5.29" required class="input" />
+                        <label for="mpg" data-tooltip="" id="tooltip-mpg" class="label">Comparison Car MPG:</label>
+                        <input type="number" id="mpg" name="mpg" value="28" required class="input" />
                     </div>
                 </div>
             </form>
         </section>
+        <article class="card">
+            <header class="card-header">
+                Glossary
+            </header>
+            <div class="card-content">
+                <strong>Base Vehicle Price:</strong> This is the base vehicle price for the Tesla Model 3. It's made in America and is one of the safest cars available.<br>
+                <strong>Federal Credit:</strong> Customers who take delivery of a qualified new Tesla and meet all federal requirements are eligible for a tax credit up to $7,500. Reductions likely after Dec 31.<br>
+                <strong>Referral Credit:</strong> Order Tesla products through a Referral Link to earn up to $500 off your order, plus 3 months of Full Self-Driving Capability.<br>
+                <strong>Destination Fee:</strong> Taxes and fees listed are estimates only, subject to change, and may not be accurate to you, depending on factors like your registration location. Your applicable taxes and fees will be confirmed for you closer to time of delivery.<br>
+                <strong>Years:</strong> Average duration of ownership of a new vehicle is 8 years. How long do you think you will own this car?<br>
+                <strong>Miles/Year:</strong> How many miles will you drive per year? National average is around 14-15K per year.<br>
+                <strong>Electricity Cost:</strong> The national average for residential electricity. Adjust based on your local rates.<br>
+                <strong>Gas/Gallon:</strong> How much is a gallon of gas in your area? By switching to a Tesla, you can avoid these costs and enjoy the convenience of charging at home.<br>
+                <strong>Comparison Car MPG:</strong> The national average MPG for comparison cars is around 28 MPG. Adjust based on the car you're comparing against.<br>
+            </div>
+        </article>
     </main>
-    <article>
-      <header>Glossary</header>
-      <ul>
-        <li><strong>Base Vehicle Price:</strong> This is the base vehicle price for the Tesla Model 3. It's made in America and is one of the safest cars available.</li>
-        <li><strong>Federal Credit:</strong> Customers who take delivery of a qualified new Tesla and meet all federal requirements are eligible for a tax credit up to $7,500. Reductions likely after Dec 31.</li>
-        <li><strong>Referral Credit:</strong> Order Tesla products through a Referral Link to earn up to $500 off your order, plus 3 months of Full Self-Driving Capability.</li>
-        <li><strong>Destination Fee:</strong> Taxes and fees listed are estimates only, subject to change, and may not be accurate to you, depending on factors like your registration location. Your applicable taxes and fees will be confirmed for you closer to time of delivery.</li>
-        <li><strong>Years:</strong> Average duration of ownership of a new vehicle is 8 years. How long do you think you will own this car?</li>
-        <li><strong>Miles/Year:</strong> How many miles will you drive per year? National average is around 14-15K per year.</li>
-        <li><strong>Electricity Cost ($/kWh):</strong> The national average for residential electricity. Adjust based on your local rates.</li>
-        <li><strong>Gas/Gallon:</strong> How much is a gallon of gas in your area? By switching to a Tesla, you can avoid these costs and enjoy the convenience of charging at home.</li>
-        <li><strong>Comparison Car MPG:</strong> The national average MPG for comparison cars is around 28 MPG. Adjust based on the car you're comparing against.</li>
-      </ul>
-    </article>    
     <div class="theme-switcher">
         <fieldset>
-            <label>
+            <label class="label">
                 Dark Mode:
-                <input type="checkbox" role="switch" checked onchange="toggleTheme()" />
+                <input type="checkbox" role="switch" checked onchange="toggleTheme()" class="input" />
             </label>
         </fieldset>
     </div>
