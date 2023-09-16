@@ -27,6 +27,15 @@ function loadStaticContent() {
         });
 }
 
+function loadBlogPost() {
+    fetch('whytesla.json')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('whytesla-title').textContent = data.title;
+            document.getElementById('whytesla-content').textContent = data.content;
+        });
+}
+
 function updateStatement() {
     const carPrice = parseFloat(document.getElementById("carPrice").value).toFixed(2);
     const years = document.getElementById("years").value;
@@ -109,6 +118,7 @@ window.onload = function () {
         });
     }
     loadStaticContent();
+    loadBlogPost();
     updateStatement();
     calculateTotal();
 };
