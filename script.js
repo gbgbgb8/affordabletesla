@@ -99,6 +99,30 @@ function toggleTheme() {
     }
 }
 
+
+function exportToJSON() {
+    const data = {
+        carPrice: document.getElementById("carPrice").value,
+        federalCredit: document.getElementById("federalCredit").value,
+        referralCredit: document.getElementById("referralCredit").value,
+        destinationFee: document.getElementById("destinationFee").value,
+        years: document.getElementById("years").value,
+        milesPerYear: document.getElementById("milesPerYear").value,
+        electricityCost: document.getElementById("electricityCost").value,
+        gasPrice: document.getElementById("gasPrice").value,
+        mpg: document.getElementById("mpg").value
+    };
+
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", "calculator_values.json");
+    document.body.appendChild(downloadAnchorNode);
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+}
+
+
 window.onload = function () {
     const inputs = document.querySelectorAll("input, select");
     for (let input of inputs) {
