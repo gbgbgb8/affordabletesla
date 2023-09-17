@@ -122,6 +122,36 @@ function exportToJSON() {
     downloadAnchorNode.remove();
 }
 
+function importFromJSON() {
+    document.getElementById('jsonInput').click();
+}
+
+function handleFile() {
+    const fileInput = document.getElementById('jsonInput');
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+        const data = JSON.parse(event.target.result);
+
+        document.getElementById("carPrice").value = data.carPrice || "";
+        document.getElementById("federalCredit").value = data.federalCredit || "";
+        document.getElementById("referralCredit").value = data.referralCredit || "";
+        document.getElementById("destinationFee").value = data.destinationFee || "";
+        document.getElementById("years").value = data.years || "";
+        document.getElementById("milesPerYear").value = data.milesPerYear || "";
+        document.getElementById("electricityCost").value = data.electricityCost || "";
+        document.getElementById("gasPrice").value = data.gasPrice || "";
+        document.getElementById("mpg").value = data.mpg || "";
+
+        // Update the calculator and total after importing values
+        updateStatement();
+        calculateTotal();
+    };
+
+    reader.readAsText(file);
+}
+
 
 window.onload = function () {
     const inputs = document.querySelectorAll("input, select");

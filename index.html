@@ -78,6 +78,8 @@
             </form>
         </section>
         <button onclick="exportToJSON()">Export to JSON</button>
+        <button onclick="importFromJSON()">Import from JSON</button>
+        <input type="file" id="jsonInput" style="display: none;" onchange="handleFile()" accept=".json">
     </main>
     <article>
       <header>Glossary</header>
