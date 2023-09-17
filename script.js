@@ -176,19 +176,17 @@ function loadTeslaModel3Values() {
 }
 
 function loadVehicleComparison() {
-    Promise.all([
-        fetch('model_x.json').then(response => response.json()),
-        fetch('yukon_denali.json').then(response => response.json()),
-        fetch('explanations.json').then(response => response.json())
-    ])
-    .then(([modelXData, yukonData, explanationsData]) => {
+    fetch('combined_comparison.json')
+    .then(response => response.json())
+    .then(data => {
         let comparisonContent = '<table>';
 
-        for (let key in modelXData) {
+        let comparisonData = data.comparison;
+        for (let key in comparisonData[0]) {
             comparisonContent += `<tr>
-                <td>${modelXData[key]}</td>
-                <td>${yukonData[key]}</td>
-                <td>${explanationsData[key]}</td>
+                <td>${comparisonData[0][key]}</td>
+                <td>${comparisonData[1][key]}</td>
+                <td>${comparisonData[2][key]}</td>
             </tr>`;
         }
 
