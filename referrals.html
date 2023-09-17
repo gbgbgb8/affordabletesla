@@ -25,6 +25,34 @@
             </ol>
             <p>Once your issue has been reviewed, we'll add your referral link to our list! Thank you for contributing!</p>
         </section>
+        <header>
+            <h1>How Referral Links Work</h1>
+        </header>
+        
+        <section>
+            <h2>Random Referral Link Selection:</h2>
+            <ol>
+                <li><strong>Load Referral Links</strong>: 
+                    <p>When the website is loaded, it fetches the list of referral links from the <code>referrals.json</code> file. This JSON file contains an array of different referral links that users have contributed over time.</p>
+                </li>
+                
+                <li><strong>Random Selection</strong>:
+                    <p>A random number generator is used to select an index from the array of referral links. This ensures that every time the page is loaded, a different referral link is chosen with equal probability.</p>
+                </li>
+                
+                <li><strong>Set the Link</strong>:
+                    <p>The randomly selected referral link is then set as the <code>href</code> attribute of the "Shop Tesla.com" button. This means when users click on this button, they will be redirected to Tesla's website using the randomly chosen referral link.</p>
+                </li>
+                
+                <li><strong>Equal Opportunity</strong>:
+                    <p>Since the selection process is entirely random and is based on the number of links in the <code>referrals.json</code>, every referral link has an equal chance of being selected each time the page is loaded. This ensures fairness and gives everyone an equal opportunity to have their referral link used by potential buyers.</p>
+                </li>
+                
+                <li><strong>Update and Expansion</strong>:
+                    <p>As more referral links are added to the <code>referrals.json</code> (for instance, through GitHub Issues as described earlier), the pool of available links grows. This ensures that the system remains dynamic and can easily accommodate more contributors over time.</p>
+                </li>
+            </ol>
+        </section>
         <footer>
             <a href="index.html">Back to Calculator</a>
         </footer>
