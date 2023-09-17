@@ -178,15 +178,17 @@ function loadTeslaModel3Values() {
 function loadVehicleComparison() {
     Promise.all([
         fetch('model_x.json').then(response => response.json()),
-        fetch('yukon_denali.json').then(response => response.json())
+        fetch('yukon_denali.json').then(response => response.json()),
+        fetch('explanations.json').then(response => response.json())
     ])
-    .then(([modelXData, yukonData]) => {
+    .then(([modelXData, yukonData, explanationsData]) => {
         let comparisonContent = '<table>';
 
         for (let key in modelXData) {
             comparisonContent += `<tr>
                 <td>${modelXData[key]}</td>
                 <td>${yukonData[key]}</td>
+                <td>${explanationsData[key]}</td>
             </tr>`;
         }
 
@@ -194,6 +196,7 @@ function loadVehicleComparison() {
         document.getElementById('vehicle-comparison-content').innerHTML = comparisonContent;
     });
 }
+
 
 
 window.onload = function () {
