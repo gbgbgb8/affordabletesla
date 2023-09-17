@@ -176,7 +176,7 @@ function loadTeslaModel3Values() {
 }
 
 function loadVehicleComparison() {
-    fetch('combined.json')
+    fetch('combined_comparison.json')
         .then(response => response.json())
         .then(data => {
             let comparison = data.comparison;
