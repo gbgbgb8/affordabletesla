@@ -176,7 +176,7 @@ function loadTeslaModel3Values() {
 }
 
 function loadVehicleComparison() {
-    fetch('combined_comparison.json')
+    fetch('combined.json')
         .then(response => response.json())
         .then(data => {
             let comparison = data.comparison;
@@ -185,7 +185,6 @@ function loadVehicleComparison() {
             
             // Header
             comparisonContent += '<thead><tr>';
-            comparisonContent += '<th scope="col">Description</th>';
             comparisonContent += '<th scope="col">Model X</th>';
             comparisonContent += '<th scope="col">Yukon Denali</th>';
             comparisonContent += '<th scope="col">Explanation</th>';
@@ -195,7 +194,6 @@ function loadVehicleComparison() {
             comparisonContent += '<tbody>';
             for (let item of comparison) {
                 comparisonContent += `<tr>`;
-                comparisonContent += `<th scope="row">${item.key}</th>`;
                 comparisonContent += `<td>${item.ModelX || '-'}</td>`;
                 comparisonContent += `<td>${item.YukonDenali || '-'}</td>`;
                 comparisonContent += `<td>${item.Explanation || '-'}</td>`;
