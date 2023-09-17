@@ -1,45 +1,76 @@
 {
     "comparison": [
         {
-            "name": "Model X",
-            "price": "$85,000",
-            "mileageAverage": "330Wh/mile average",
-            "annualMiles": "20,000miles/year",
-            "annualFuel": "6,600kWh/year",
-            "fuelCost": "0.23kwh cost average in US",
-            "annualFuelCosts": "$1,518/year in energy cost",
-            "maintenanceCost": "Regen brakes",
-            "annualCosts": "$4,554/year in costs",
-            "threeYearCosts": "$14,970/3 years cost",
-            "resaleValueAfter3Years": "After 3 years Model X is selling for $55K",
-            "threeYearCostPerMile": "3 year costs: $34,554/60K miles $0.57/mile cost of ownership"
+            "key": "name",
+            "ModelX": "Model X",
+            "YukonDenali": "Yukon Denali",
+            "Explanation": "Model name"
         },
         {
-            "name": "Yukon Denali",
-            "price": "$95,000",
-            "mileageAverage": "20mpg average",
-            "annualMiles": "20,000miles/year",
-            "annualFuel": "1000gallons/year",
-            "fuelCost": "$4.70 average premium fuel/gallon",
-            "annualFuelCosts": "$4,700/year in fuel costs",
-            "maintenanceCost": "$100/year in oil costs ($0.00 oil change) and $170/year in brakes ($510 brake replacement/3 years)",
-            "annualCosts": "$4,990/year in costs",
-            "threeYearCosts": "$14,970/3 years cost",
-            "resaleValueAfter3Years": "After 3 years the truck is selling for $45K",
-            "threeYearCostPerMile": "3 year costs: $54,970/60K miles $0.92/mile cost of ownership"
+            "key": "price",
+            "ModelX": "$85,000",
+            "YukonDenali": "$95,000",
+            "Explanation": "The Model X starts at $10,000 less than the Yukon Denali, offering immediate upfront savings."
         },
         {
-            "Price": "The Model X starts at $10,000 less than the Yukon Denali, offering immediate upfront savings.",
-            "Mileage Average": "While the Model X operates on electricity, the Yukon Denali uses gasoline. The Model X's efficiency in terms of Wh/mile can translate to further savings in the long run.",
-            "Annual Miles": "This is kept constant to make a fair comparison between the two vehicles.",
-            "Annual Fuel": "The Model X consumes electricity, whereas the Yukon Denali consumes gasoline. The difference in fuel type can lead to cost disparities.",
-            "Fuel/Electricity Cost": "The cost of electricity is significantly lower than that of premium gasoline, leading to annual savings for Model X owners.",
-            "Annual Energy/Fuel Costs": "The Model X's electricity costs are significantly less than the Yukon Denali's fuel costs, resulting in substantial annual savings.",
-            "Brake System/Cost": "The Model X uses regenerative braking, which reduces wear on the brakes and can lead to longer brake life and fewer replacements.",
-            "Annual Costs": "Overall, the Model X has slightly lower annual costs compared to the Yukon Denali.",
-            "Three-Year Costs": "Over a span of three years, the costs remain the same for both vehicles, but considering other benefits like the environment, the Model X is a better choice.",
-            "Resale Value After 3 Years": "The Model X retains a higher resale value after 3 years compared to the Yukon Denali, ensuring a better return on investment.",
-            "Three-Year Cost Per Mile": "The Model X offers a more economical cost per mile over three years, nearly 38% cheaper than the Yukon Denali."
+            "key": "mileageAverage",
+            "ModelX": "330Wh/mile average",
+            "YukonDenali": "20mpg average",
+            "Explanation": "While the Model X operates on electricity, the Yukon Denali uses gasoline. The Model X's efficiency in terms of Wh/mile can translate to further savings in the long run."
+        },
+        {
+            "key": "annualMiles",
+            "ModelX": "20,000miles/year",
+            "YukonDenali": "20,000miles/year",
+            "Explanation": "This is kept constant to make a fair comparison between the two vehicles."
+        },
+        {
+            "key": "annualFuel",
+            "ModelX": "6,600kWh/year",
+            "YukonDenali": "1000gallons/year",
+            "Explanation": "The Model X consumes electricity, whereas the Yukon Denali consumes gasoline. The difference in fuel type can lead to cost disparities."
+        },
+        {
+            "key": "fuelCost",
+            "ModelX": "0.23kwh cost average in US",
+            "YukonDenali": "$4.70 average premium fuel/gallon",
+            "Explanation": "The cost of electricity is significantly lower than that of premium gasoline, leading to annual savings for Model X owners."
+        },
+        {
+            "key": "annualFuelCosts",
+            "ModelX": "$1,518/year in energy cost",
+            "YukonDenali": "$4,700/year in fuel costs",
+            "Explanation": "The Model X's electricity costs are significantly less than the Yukon Denali's fuel costs, resulting in substantial annual savings."
+        },
+        {
+            "key": "maintenanceCost",
+            "ModelX": "Regen brakes",
+            "YukonDenali": "$100/year in oil costs ($0.00 oil change) and $170/year in brakes ($510 brake replacement/3 years)",
+            "Explanation": "The Model X uses regenerative braking, which reduces wear on the brakes and can lead to longer brake life and fewer replacements."
+        },
+        {
+            "key": "annualCosts",
+            "ModelX": "$4,554/year in costs",
+            "YukonDenali": "$4,990/year in costs",
+            "Explanation": "Overall, the Model X has slightly lower annual costs compared to the Yukon Denali."
+        },
+        {
+            "key": "threeYearCosts",
+            "ModelX": "$14,970/3 years cost",
+            "YukonDenali": "$14,970/3 years cost",
+            "Explanation": "Over a span of three years, the costs remain the same for both vehicles, but considering other benefits like the environment, the Model X is a better choice."
+        },
+        {
+            "key": "resaleValueAfter3Years",
+            "ModelX": "After 3 years Model X is selling for $55K",
+            "YukonDenali": "After 3 years the truck is selling for $45K",
+            "Explanation": "The Model X retains a higher resale value after 3 years compared to the Yukon Denali, ensuring a better return on investment."
+        },
+        {
+            "key": "threeYearCostPerMile",
+            "ModelX": "3 year costs: $34,554/60K miles $0.57/mile cost of ownership",
+            "YukonDenali": "3 year costs: $54,970/60K miles $0.92/mile cost of ownership",
+            "Explanation": "The Model X offers a more economical cost per mile over three years, nearly 38% cheaper than the Yukon Denali."
         }
     ]
 }

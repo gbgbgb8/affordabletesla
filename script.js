@@ -181,19 +181,19 @@ function loadVehicleComparison() {
     .then(data => {
         let comparisonContent = '<table>';
 
-        let comparisonData = data.comparison;
-        for (let key in comparisonData[0]) {
+        data.comparison.forEach(row => {
             comparisonContent += `<tr>
-                <td>${comparisonData[0][key]}</td>
-                <td>${comparisonData[1][key]}</td>
-                <td>${comparisonData[2][key]}</td>
+                <td>${row.ModelX}</td>
+                <td>${row.YukonDenali}</td>
+                <td>${row.Explanation}</td>
             </tr>`;
-        }
+        });
 
         comparisonContent += '</table>';
         document.getElementById('vehicle-comparison-content').innerHTML = comparisonContent;
     });
 }
+
 
 
 
