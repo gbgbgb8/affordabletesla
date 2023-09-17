@@ -177,7 +177,7 @@ function loadTeslaModel3Values() {
 
 function loadVehicleComparison() {
     Promise.all([
-        fetch('modelx.json').then(response => response.json()),
+        fetch('model_x.json').then(response => response.json()),
         fetch('yukon_denali.json').then(response => response.json())
     ])
     .then(([modelXData, yukonData]) => {
