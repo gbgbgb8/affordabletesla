@@ -152,6 +152,29 @@ function handleFile() {
     reader.readAsText(file);
 }
 
+function loadTeslaModel3Values() {
+    fetch('teslamodel3.json')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("carPrice").value = data.carPrice || "";
+            document.getElementById("federalCredit").value = data.federalCredit || "";
+            document.getElementById("referralCredit").value = data.referralCredit || "";
+            document.getElementById("destinationFee").value = data.destinationFee || "";
+            document.getElementById("years").value = data.years || "";
+            document.getElementById("milesPerYear").value = data.milesPerYear || "";
+            document.getElementById("electricityCost").value = data.electricityCost || "";
+            document.getElementById("gasPrice").value = data.gasPrice || "";
+            document.getElementById("mpg").value = data.mpg || "";
+
+            // Update the calculator and total after loading values
+            updateStatement();
+            calculateTotal();
+        })
+        .catch(error => {
+            console.error("Error loading Tesla Model 3 values:", error);
+        });
+}
+
 
 window.onload = function () {
     const inputs = document.querySelectorAll("input, select");
