@@ -175,6 +175,26 @@ function loadTeslaModel3Values() {
         });
 }
 
+function loadVehicleComparison() {
+    Promise.all([
+        fetch('modelx.json').then(response => response.json()),
+        fetch('yukon_denali.json').then(response => response.json())
+    ])
+    .then(([modelXData, yukonData]) => {
+        let comparisonContent = '<table>';
+
+        for (let key in modelXData) {
+            comparisonContent += `<tr>
+                <td><strong>Model X:</strong> ${modelXData[key]}</td>
+                <td><strong>Yukon Denali:</strong> ${yukonData[key]}</td>
+            </tr>`;
+        }
+
+        comparisonContent += '</table>';
+        document.getElementById('vehicle-comparison-content').innerHTML = comparisonContent;
+    });
+}
+
 
 window.onload = function () {
     const inputs = document.querySelectorAll("input, select");
@@ -187,4 +207,5 @@ window.onload = function () {
     loadStaticContent();
     updateStatement();
     calculateTotal();
+    loadVehicleComparison();
 };

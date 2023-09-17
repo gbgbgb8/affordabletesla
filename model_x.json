@@ -1,0 +1,14 @@
+{
+    "name": "Model X",
+    "price": "$85,000",
+    "mileageAverage": "330Wh/mile average",
+    "annualMiles": "20,000miles/year",
+    "annualFuel": "6,600kWh/year",
+    "electricityCost": "0.23kwh cost average in US",
+    "annualEnergyCosts": "$1,518/year in energy cost",
+    "brakeSystem": "Regen brakes",
+    "annualCosts": "$4,554/year in costs",
+    "threeYearCosts": "$14,970/3 years cost",
+    "resaleValueAfter3Years": "After 3 years Model X is selling for $55K",
+    "threeYearCostPerMile": "3 year costs: $34,554/60K miles $0.57/mile cost of ownership"
+}

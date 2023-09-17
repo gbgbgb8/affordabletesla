@@ -1,0 +1,15 @@
+{
+    "name": "Yukon Denali",
+    "price": "$95,000",
+    "mileageAverage": "20mpg average",
+    "annualMiles": "20,000miles/year",
+    "annualFuel": "1000gallons/year",
+    "fuelCost": "$4.70 average premium fuel/gallon",
+    "annualFuelCosts": "$4,700/year in fuel costs",
+    "oilChangeCost": "$100/year in oil costs ($0.00 oil change)",
+    "brakeCost": "$170/year in brakes ($510 brake replacement/3 years)",
+    "annualCosts": "$4,990/year in costs",
+    "threeYearCosts": "$14,970/3 years cost",
+    "resaleValueAfter3Years": "After 3 years the truck is selling for $45K",
+    "threeYearCostPerMile": "3 year costs: $54,970/60K miles $0.92/mile cost of ownership"
+}
