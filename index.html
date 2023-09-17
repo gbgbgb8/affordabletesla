@@ -5,12 +5,11 @@
     <meta charset="UTF-8" />
     <title>Tesla is Affordable!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/picocss/1.5.10/pico.min.css"
-        integrity="sha512-R4D8tIuJws1QxZAVEpeFxtKEw4iab4HuyVzofpiO19VmlBhXW5qdTCmD/+yYQ+nviYUgS2EywDnoNTaj+lpUfA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/picocss/1.5.10/pico.min.css" integrity="sha512-R4D8tIuJws1QxZAVEpeFxtKEw4iab4HuyVzofpiO19VmlBhXW5qdTCmD/+yYQ+nviYUgS2EywDnoNTaj+lpUfA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.1/markdown-it.min.js" integrity="sha512-SYfDUYPg5xspsG6OOpXU366G8SZsdHOhqk/icdrYJ2E/WKZxPxze7d2HD3AyXpT7U22PZ5y74xRpqZ6A2bJ+kQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
-        .theme-switcher, .shop-button {
+        .theme-switcher,
+        .shop-button {
             position: fixed;
             right: 20px;
             z-index: 999;
@@ -27,6 +26,24 @@
         #totalValue {
             font-size: 1.2em;
         }
+
+        label {
+            display: block;
+            margin-bottom: 0.5em;
+        }
+
+        input[type="number"] {
+            width: 100%;
+        }
+
+        .grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .buttons-group {
+            margin: 1rem 0;
+        }
     </style>
 </head>
 
@@ -35,19 +52,12 @@
         <header>
             <p id="headerTitle">Tesla Affordability Calculator, 2023</p>
             <p id="summaryStatement">
-              With a base vehicle price of <mark id="basePrice">X</mark>, after
-              <mark id="yearsHighlight">Y</mark> years of fuel savings, considering an average of
-              <mark id="milesYearHighlight">Z</mark> miles per year, electricity cost of
-              <mark id="electricityCostHighlight">A</mark> per kWh, gas price of
-              <mark id="gasPriceHighlight">B</mark> per gallon, and a comparison car MPG of
-              <mark id="mpgHighlight">C</mark> MPG, along with <mark id="totalCreditsHighlight">D</mark> in
-              Federal/State/Referral credits, the total cost of this Tesla is:
-              <kbd id="totalValue">E</kbd>
-          </p>
-          <details class="accordion">
-            <summary class="accordion-header" id="whytesla-title">Why Your Next Car Should Be a Tesla?</summary>
-            <div class="accordion-content" id="whytesla-content"></div>
-        </details>          
+                With a base vehicle price of <mark id="basePrice">X</mark>, after <mark id="yearsHighlight">Y</mark> years of fuel savings, considering an average of <mark id="milesYearHighlight">Z</mark> miles per year, electricity cost of <mark id="electricityCostHighlight">A</mark> per kWh, gas price of <mark id="gasPriceHighlight">B</mark> per gallon, and a comparison car MPG of <mark id="mpgHighlight">C</mark> MPG, along with <mark id="totalCreditsHighlight">D</mark> in Federal/State/Referral credits, the total cost of this Tesla is: <kbd id="totalValue">E</kbd>
+            </p>
+            <details class="accordion">
+                <summary class="accordion-header" id="whytesla-title">Why Your Next Car Should Be a Tesla?</summary>
+                <div class="accordion-content" id="whytesla-content"></div>
+            </details>
         </header>
         <section>
             <form id="tesla-calculator">
@@ -64,7 +74,7 @@
                     </div>
                     <div>
                         <label for="years" data-tooltip="" id="tooltip-years">Years:</label>
-                        <input type="number" id="years" name="years" value="8" required min="1" max="100" step="1"/>
+                        <input type="number" id="years" name="years" value="8" required min="1" max="100" step="1" />
                         <label for="milesPerYear" data-tooltip="" id="tooltip-milesPerYear">Miles/Year:</label>
                         <input type="number" id="milesPerYear" name="milesPerYear" value="15000" required />
                         <label for="electricityCost" data-tooltip="" id="tooltip-electricityCost">Electricity Cost ($/kWh):</label>
@@ -75,17 +85,18 @@
                         <input type="number" id="mpg" name="mpg" value="28" required />
                     </div>
                 </div>
+                <div class="buttons-group">
+                    <button onclick="exportToJSON()">Export to JSON</button>
+                    <button onclick="importFromJSON()">Import from JSON</button>
+                    <button onclick="loadTeslaModel3Values()">Load Tesla Model 3 Values</button>
+                </div>
             </form>
         </section>
-        <button onclick="exportToJSON()">Export to JSON</button>
-        <button onclick="importFromJSON()">Import from JSON</button>
-        <input type="file" id="jsonInput" style="display: none;" onchange="handleFile()" accept=".json">
-        <button onclick="loadTeslaModel3Values()">Load Tesla Model 3 Values</button>
+        <article>
+            <header>Glossary</header>
+            <ul id="glossary"></ul>
+        </article>
     </main>
-    <article>
-      <header>Glossary</header>
-      <ul id="glossary"></ul>
-    </article>
     <div class="shop-button">
         <a href="https://ts.la/garrett93941" role="button" class="outline">Shop Tesla.com</a>
     </div>
