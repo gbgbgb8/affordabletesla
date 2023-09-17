@@ -185,8 +185,8 @@ function loadVehicleComparison() {
 
         for (let key in modelXData) {
             comparisonContent += `<tr>
-                <td><strong>Model X:</strong> ${modelXData[key]}</td>
-                <td><strong>Yukon Denali:</strong> ${yukonData[key]}</td>
+                <td>${modelXData[key]}</td>
+                <td>${yukonData[key]}</td>
             </tr>`;
         }
 
