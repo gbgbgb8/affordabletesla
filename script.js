@@ -207,6 +207,17 @@ function loadVehicleComparison() {
         });
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+    fetch('referrals.json')
+        .then(response => response.json())
+        .then(data => {
+            const referralLinks = data.referrals;
+            const randomIndex = Math.floor(Math.random() * referralLinks.length);
+            const selectedReferralLink = referralLinks[randomIndex];
+            
+            document.getElementById('referral-link').href = selectedReferralLink;
+        });
+});
 
 
 
