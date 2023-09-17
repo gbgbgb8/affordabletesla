@@ -176,23 +176,39 @@ function loadTeslaModel3Values() {
 }
 
 function loadVehicleComparison() {
-    fetch('combined_comparison.json')
-    .then(response => response.json())
-    .then(data => {
-        let comparisonContent = '<table>';
+    fetch('combined.json')
+        .then(response => response.json())
+        .then(data => {
+            let comparison = data.comparison;
 
-        data.comparison.forEach(row => {
-            comparisonContent += `<tr>
-                <td>${row.ModelX}</td>
-                <td>${row.YukonDenali}</td>
-                <td>${row.Explanation}</td>
-            </tr>`;
+            let comparisonContent = '<table role="grid">';
+            
+            // Header
+            comparisonContent += '<thead><tr>';
+            comparisonContent += '<th scope="col">Description</th>';
+            comparisonContent += '<th scope="col">Model X</th>';
+            comparisonContent += '<th scope="col">Yukon Denali</th>';
+            comparisonContent += '<th scope="col">Explanation</th>';
+            comparisonContent += '</tr></thead>';
+
+            // Body
+            comparisonContent += '<tbody>';
+            for (let item of comparison) {
+                comparisonContent += `<tr>`;
+                comparisonContent += `<th scope="row">${item.key}</th>`;
+                comparisonContent += `<td>${item.ModelX || '-'}</td>`;
+                comparisonContent += `<td>${item.YukonDenali || '-'}</td>`;
+                comparisonContent += `<td>${item.Explanation || '-'}</td>`;
+                comparisonContent += `</tr>`;
+            }
+            comparisonContent += '</tbody>';
+            
+            comparisonContent += '</table>';
+
+            document.getElementById('vehicle-comparison-content').innerHTML = comparisonContent;
         });
-
-        comparisonContent += '</table>';
-        document.getElementById('vehicle-comparison-content').innerHTML = comparisonContent;
-    });
 }
+
 
 
 
