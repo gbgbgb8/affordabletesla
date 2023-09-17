@@ -1,0 +1,60 @@
+.theme-switcher,
+.shop-button {
+    position: fixed;
+    right: 20px;
+    z-index: 999;
+}
+
+.theme-switcher {
+    bottom: 20px;
+}
+
+.shop-button {
+    top: 20px;
+}
+
+#totalValue {
+    font-size: 1.2em;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+input[type="number"] {
+    width: 100%;
+}
+
+.grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.buttons-group {
+    margin: 1rem 0;
+}
+
+.shop-button a {
+    background-color: #CC0033;
+    color: #fff;
+}
+
+.small {
+    font-size: 0.8em;
+    padding: 0.2em 0.5em;
+    margin-top: 1rem;
+    display: inline-block;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    vertical-align: top;
+}
