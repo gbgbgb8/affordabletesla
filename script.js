@@ -34,7 +34,8 @@ function updateStatement() {
     const mpg = parseFloat(document.getElementById("mpg").value).toFixed(2);
     const federalCredit = parseFloat(document.getElementById("federalCredit").value).toFixed(2);
     const referralCredit = parseFloat(document.getElementById("referralCredit").value).toFixed(2);
-    const totalCredits = (parseFloat(federalCredit) + parseFloat(referralCredit)).toFixed(2);
+    const destinationFee = parseFloat(document.getElementById("destinationFee").value);
+const totalCredits = federalCredit + referralCredit + destinationFee;
 
     document.getElementById("basePrice").textContent = "$" + carPrice;
     document.getElementById("yearsHighlight").textContent = years;
@@ -43,11 +44,11 @@ function updateStatement() {
     document.getElementById("gasPriceHighlight").textContent = "$" + gasPrice;
     document.getElementById("mpgHighlight").textContent = mpg + " MPG";
     document.getElementById("totalCreditsHighlight").textContent = "$" + Math.abs(totalCredits);
-    document.getElementById("tesla-initial-cost").textContent = "$" + calculateAffordability().toFixed(2);
+document.getElementById("tesla-initial-cost").textContent = "$" + (carPrice + totalCredits).toFixed(2);
 document.getElementById("tesla-gasoline-spend").textContent = "$" + calculateFuelSavings().toFixed(2);
 document.getElementById("tesla-electricity-spend").textContent = "$" + calculateElectricityCost().toFixed(2);
 document.getElementById("tesla-savings").textContent = "$" + (calculateFuelSavings() - calculateElectricityCost()).toFixed(2);
-document.getElementById("tesla-total-cost").textContent = "$" + (calculateAffordability() + calculateElectricityCost() - calculateFuelSavings()).toFixed(2);
+document.getElementById("tesla-total-cost").textContent = "$" + (carPrice + totalCredits + calculateElectricityCost() - calculateFuelSavings()).toFixed(2);
 
 }
 
@@ -56,7 +57,7 @@ function calculateTotal() {
     const fuelSavings = calculateFuelSavings();
     const electricityCost = calculateElectricityCost();
     const totalCredits = calculateCredits();
-    const resultingCost = initialCost + electricityCost - fuelSavings + totalCredits;
+    const resultingCost = initialCost + electricityCost - fuelSavings;
 
     document.getElementById("totalValue").textContent = "$" + resultingCost.toFixed(2);
 }
