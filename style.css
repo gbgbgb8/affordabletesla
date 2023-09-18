@@ -32,7 +32,14 @@ input[type="number"] {
 }
 
 .buttons-group {
-    margin: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.button-left, .button-right {
+    display: flex;
+    gap: 0.5rem;  /* Provides spacing between buttons */
 }
 
 .shop-button a {

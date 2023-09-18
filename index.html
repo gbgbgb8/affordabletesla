@@ -49,10 +49,14 @@
                     </div>
                 </div>
                 <div class="buttons-group">
-                    <button onclick="exportToJSON()">Export to JSON</button>
-                    <button onclick="importFromJSON()">Import from JSON</button>
-                    <button onclick="loadTeslaModel3Values()">2023 Tesla Model 3</button>
-                </div>
+                    <div class="button-left">
+                        <button class="small" onclick="loadTeslaModel3Values()">2023 Tesla Model 3</button>
+                    </div>
+                    <div class="button-right">
+                        <button class="small" onclick="importFromJSON()">Import from JSON</button>
+                        <button class="small" onclick="exportToJSON()">Export to JSON</button>
+                    </div>
+                </div>                
             </form>
         </section>
         <details class="accordion">
