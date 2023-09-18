@@ -43,6 +43,12 @@ function updateStatement() {
     document.getElementById("gasPriceHighlight").textContent = "$" + gasPrice;
     document.getElementById("mpgHighlight").textContent = mpg + " MPG";
     document.getElementById("totalCreditsHighlight").textContent = "$" + Math.abs(totalCredits);
+    document.getElementById("tesla-initial-cost").textContent = "$" + calculateAffordability().toFixed(2);
+document.getElementById("tesla-gasoline-spend").textContent = "$" + calculateFuelSavings().toFixed(2);
+document.getElementById("tesla-electricity-spend").textContent = "$" + calculateElectricityCost().toFixed(2);
+document.getElementById("tesla-savings").textContent = "$" + (calculateFuelSavings() - calculateElectricityCost()).toFixed(2);
+document.getElementById("tesla-total-cost").textContent = "$" + (calculateAffordability() + calculateElectricityCost() - calculateFuelSavings()).toFixed(2);
+
 }
 
 function calculateTotal() {
@@ -249,6 +255,8 @@ function updateGasolineStatement() {
     document.getElementById("gasoline-gasPriceHighlight").textContent = "$" + gasPrice;
     document.getElementById("gasoline-mpgHighlight").textContent = mpg + " MPG";
     document.getElementById("gasoline-totalValue").textContent = "$" + (parseFloat(carPrice) + parseFloat(totalGasCost)).toFixed(2);
+    document.getElementById("gasoline-gasoline-spend").textContent = "$" + calculateGasolineCost().toFixed(2);
+document.getElementById("gasoline-total-cost").textContent = "$" + (parseFloat(document.getElementById("gasoline-carPrice").value) + calculateGasolineCost()).toFixed(2);
 }
 
 

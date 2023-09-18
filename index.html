@@ -18,6 +18,18 @@
                 With a base vehicle price of <mark id="basePrice">X</mark>, after <mark id="yearsHighlight">Y</mark> years of fuel savings, considering an average of <mark id="milesYearHighlight">Z</mark> miles per year, electricity cost of <mark id="electricityCostHighlight">A</mark> per kWh, gas price of <mark id="gasPriceHighlight">B</mark> per gallon, and a comparison car MPG of <mark id="mpgHighlight">C</mark> MPG, along with <mark id="totalCreditsHighlight">D</mark> in Federal/State/Referral credits, the total cost of this Tesla is: <kbd id="totalValue">E</kbd>
             </p>
         </header>
+        <details class="accordion">
+            <summary class="accordion-header">Show Your Work (Tesla)</summary>
+            <div class="accordion-content">
+                <ul>
+                    <li><strong>Initial Cost:</strong> <span id="tesla-initial-cost"></span></li>
+                    <li><strong>Gasoline Spend:</strong> <span id="tesla-gasoline-spend"></span></li>
+                    <li><strong>Electricity Spend:</strong> <span id="tesla-electricity-spend"></span></li>
+                    <li><strong>Total Savings from Gasoline:</strong> <span id="tesla-savings"></span></li>
+                    <li><strong>Total Cost of Tesla:</strong> <span id="tesla-total-cost"></span></li>
+                </ul>
+            </div>
+        </details>        
         <section>
             <form id="tesla-calculator">
                 <div class="grid">
@@ -82,6 +94,15 @@
                 <p id="gasoline-summaryStatement">
                     With a base vehicle price of <mark id="gasoline-basePriceHighlight">X</mark>, after <mark id="gasoline-yearsHighlight">Y</mark> years of fuel expenses, considering an average of <mark id="gasoline-milesYearHighlight">Z</mark> miles per year, a gas price of <mark id="gasoline-gasPriceHighlight">B</mark> per gallon, and an MPG of <mark id="gasoline-mpgHighlight">C</mark>, the total cost of this gasoline vehicle is: <kbd id="gasoline-totalValue">E</kbd>
                 </p>   
+                <details class="accordion">
+                    <summary class="accordion-header">Show Your Work (Gasoline Car)</summary>
+                    <div class="accordion-content">
+                        <ul>
+                            <li><strong>Gasoline Spend:</strong> <span id="gasoline-gasoline-spend"></span></li>
+                            <li><strong>Total Cost of Gasoline Car:</strong> <span id="gasoline-total-cost"></span></li>
+                        </ul>
+                    </div>
+                </details>
             </form>
         </details>        
         <details class="accordion">
