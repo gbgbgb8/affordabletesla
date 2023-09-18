@@ -180,14 +180,17 @@ function loadVehicleComparison() {
         .then(response => response.json())
         .then(data => {
             let comparison = data.comparison;
+
             let comparisonContent = '<table role="grid">';
-            
+
+            // Header
             comparisonContent += '<thead><tr>';
             comparisonContent += '<th scope="col">Model X</th>';
             comparisonContent += '<th scope="col">Yukon Denali</th>';
             comparisonContent += '<th scope="col">Explanation</th>';
             comparisonContent += '</tr></thead>';
 
+            // Body
             comparisonContent += '<tbody>';
             for (let item of comparison) {
                 comparisonContent += `<tr>`;
@@ -197,7 +200,7 @@ function loadVehicleComparison() {
                 comparisonContent += `</tr>`;
             }
             comparisonContent += '</tbody>';
-            
+
             comparisonContent += '</table>';
 
             document.getElementById('vehicle-comparison-content').innerHTML = comparisonContent;
@@ -211,25 +214,10 @@ document.addEventListener("DOMContentLoaded", function() {
             const referralLinks = data.referrals;
             const randomIndex = Math.floor(Math.random() * referralLinks.length);
             const selectedReferralLink = referralLinks[randomIndex];
-            
+
             document.getElementById('referral-link').href = selectedReferralLink;
         });
 });
-
-function handleURLParameters() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const parameterNames = ["carPrice", "federalCredit", "referralCredit", "destinationFee", "years", "milesPerYear", "electricityCost", "gasPrice", "mpg"];
-    
-    for (const paramName of parameterNames) {
-        if (urlParams.has(paramName)) {
-            document.getElementById(paramName).value = urlParams.get(paramName);
-        }
-    }
-
-    // Update the calculator and total after importing values
-    updateStatement();
-    calculateTotal();
-}
 
 window.onload = function () {
     const inputs = document.querySelectorAll("input, select");
@@ -243,5 +231,4 @@ window.onload = function () {
     updateStatement();
     calculateTotal();
     loadVehicleComparison();
-    handleURLParameters();
 };

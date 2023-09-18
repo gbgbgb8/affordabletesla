@@ -46,11 +46,11 @@
                 </div>
                 <div class="buttons-group">
                     <div class="button-left">
-                        <button type="button" class="small" onclick="loadTeslaModel3Values()">2023 Tesla Model 3</button>
+                        <button class="small" onclick="loadTeslaModel3Values()">2023 Tesla Model 3</button>
                     </div>
                     <div class="button-right">
-                        <button type="button" class="small" onclick="importFromJSON()">Load</button>
-                        <button type="button" class="small" onclick="exportToJSON()">Save</button>
+                        <button class="small" onclick="importFromJSON()">Load</button>
+                        <button class="small" onclick="exportToJSON()">Save</button>
                     </div>
                 </div>                
             </form>
@@ -61,8 +61,7 @@
         </details>
         <details class="accordion">
             <summary class="accordion-header">Vehicle Comparison: Model X vs. Yukon Denali</summary><a href="https://x.com/HABiBtheDWEEB/status/1702400111093895233?s=20" role="button" class="small">Source</a>
-            <div class="accordion-content" id="vehicle-comparison-content">
-            </div>
+            <div class="accordion-content" id="vehicle-comparison-content"></div>
         </details>
         <details class="accordion">
             <summary class="accordion-header">Glossary</summary>
@@ -87,6 +86,7 @@
             </label>
         </fieldset>
     </div>
+    <input type="file" id="jsonInput" style="display: none;" onchange="handleFile()">
     <script src="script.js"></script>
 </body>
 
