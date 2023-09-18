@@ -214,13 +214,18 @@ function updateGasolineStatement() {
     const gasPrice = parseFloat(document.getElementById("gasoline-gasPrice").value).toFixed(2);
     const mpg = parseFloat(document.getElementById("gasoline-mpg").value).toFixed(2);
     const totalGasCost = calculateGasolineCost().toFixed(2);
+    
     document.getElementById("gasoline-basePriceHighlight").textContent = "$" + carPrice;
     document.getElementById("gasoline-yearsHighlight").textContent = years;
     document.getElementById("gasoline-milesYearHighlight").textContent = milesPerYear + " miles";
     document.getElementById("gasoline-gasPriceHighlight").textContent = "$" + gasPrice;
     document.getElementById("gasoline-mpgHighlight").textContent = mpg + " MPG";
     document.getElementById("gasoline-totalValue").textContent = "$" + (parseFloat(carPrice) + parseFloat(totalGasCost)).toFixed(2);
+    
+    document.getElementById("gasoline-gasoline-spend").textContent = "$" + totalGasCost;
+    document.getElementById("gasoline-total-cost").textContent = "$" + (parseFloat(carPrice) + parseFloat(totalGasCost)).toFixed(2);
 }
+
 
 function calculateGasolineCost() {
     const years = parseFloat(document.getElementById("gasoline-years").value);
