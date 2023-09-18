@@ -1,12 +1,3 @@
-function calculateTotalMiles(years, milesPerYear) {
-    return years * milesPerYear;
-}
-
-function calculateTotalGasCost(totalMiles, mpg, gasPrice) {
-    const totalGallons = totalMiles / mpg;
-    return totalGallons * gasPrice;
-}
-
 function loadStaticContent() {
     fetch('whytesla.md')
         .then(response => response.text())
@@ -72,8 +63,9 @@ function calculateFuelSavings() {
     const milesPerYear = parseFloat(document.getElementById("milesPerYear").value);
     const gasPrice = parseFloat(document.getElementById("gasPrice").value);
     const mpg = parseFloat(document.getElementById("mpg").value);
-    const totalMiles = calculateTotalMiles(years, milesPerYear);
-    return calculateTotalGasCost(totalMiles, mpg, gasPrice);
+    const totalMiles = years * milesPerYear;
+    const totalGallons = totalMiles / mpg;
+    return totalGallons * gasPrice;
 }
 
 function calculateElectricityCost() {
@@ -81,7 +73,7 @@ function calculateElectricityCost() {
     const milesPerYear = parseFloat(document.getElementById("milesPerYear").value);
     const electricityCost = parseFloat(document.getElementById("electricityCost").value);
     const teslaMileKwh = 25.0 / 100;
-    const totalMiles = calculateTotalMiles(years, milesPerYear);
+    const totalMiles = years * milesPerYear;
     const totalKWh = totalMiles * teslaMileKwh;
     return totalKWh * electricityCost;
 }
@@ -157,24 +149,61 @@ function loadTeslaModel3Values() {
             document.getElementById("mpg").value = data.mpg || "";
             updateStatement();
             calculateTotal();
+        })
+        .catch(error => {
+            console.error("Error loading Tesla Model 3 values:", error);
         });
 }
 
-function loadTeslaModelSValues() {
-    fetch('teslamodels.json')
+function loadVehicleComparison() {
+    fetch('combined_comparison.json')
         .then(response => response.json())
         .then(data => {
-            document.getElementById("carPrice").value = data.carPrice || "";
-            document.getElementById("federalCredit").value = data.federalCredit || "";
-            document.getElementById("referralCredit").value = data.referralCredit || "";
-            document.getElementById("destinationFee").value = data.destinationFee || "";
-            document.getElementById("years").value = data.years || "";
-            document.getElementById("milesPerYear").value = data.milesPerYear || "";
-            document.getElementById("electricityCost").value = data.electricityCost || "";
-            document.getElementById("gasPrice").value = data.gasPrice || "";
-            document.getElementById("mpg").value = data.mpg || "";
-            updateStatement();
-            calculateTotal();
+            let comparison = data.comparison;
+            let comparisonContent = '<table role="grid">';
+            comparisonContent += '<thead><tr>';
+            comparisonContent += '<th scope="col">Model X</th>';
+            comparisonContent += '<th scope="col">Yukon Denali</th>';
+            comparisonContent += '<th scope="col">Explanation</th>';
+            comparisonContent += '</tr></thead>';
+            comparisonContent += '<tbody>';
+            for (let item of comparison) {
+                comparisonContent += `<tr>`;
+                comparisonContent += `<td>${item.ModelX || '-'}</td>`;
+                comparisonContent += `<td>${item.YukonDenali || '-'}</td>`;
+                comparisonContent += `<td>${item.Explanation || '-'}</td>`;
+                comparisonContent += `</tr>`;
+            }
+            comparisonContent += '</tbody>';
+            comparisonContent += '</table>';
+            document.getElementById('vehicle-comparison-content').innerHTML = comparisonContent;
+        });
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    fetch('referrals.json')
+        .then(response => response.json())
+        .then(data => {
+            const referralLinks = data.referrals;
+            const randomIndex = Math.floor(Math.random() * referralLinks.length);
+            const selectedReferralLink = referralLinks[randomIndex];
+            document.getElementById('referral-link').href = selectedReferralLink;
+        });
+});
+
+function loadToyotaCorollaValues() {
+    fetch('toyotacorolla.json')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("gasoline-carPrice").value = data.carPrice || "";
+            document.getElementById("gasoline-destinationFee").value = data.destinationFee || "";
+            document.getElementById("gasoline-years").value = data.years || "";
+            document.getElementById("gasoline-milesPerYear").value = data.milesPerYear || "";
+            document.getElementById("gasoline-gasPrice").value = data.gasPrice || "";
+            document.getElementById("gasoline-mpg").value = data.mpg || "";
+        })
+        .catch(error => {
+            console.error("Error loading Toyota Corolla values:", error);
         });
 }
 
@@ -184,12 +213,47 @@ function updateGasolineStatement() {
     const milesPerYear = parseFloat(document.getElementById("gasoline-milesPerYear").value).toFixed(2);
     const gasPrice = parseFloat(document.getElementById("gasoline-gasPrice").value).toFixed(2);
     const mpg = parseFloat(document.getElementById("gasoline-mpg").value).toFixed(2);
-    const totalMiles = calculateTotalMiles(years, milesPerYear);
-    const totalGasCost = calculateTotalGasCost(totalMiles, mpg, gasPrice).toFixed(2);
-    document.getElementById("gasoline-basePrice").textContent = "$" + carPrice;
+    const totalGasCost = calculateGasolineCost().toFixed(2);
+    
+    document.getElementById("gasoline-basePriceHighlight").textContent = "$" + carPrice;
     document.getElementById("gasoline-yearsHighlight").textContent = years;
     document.getElementById("gasoline-milesYearHighlight").textContent = milesPerYear + " miles";
     document.getElementById("gasoline-gasPriceHighlight").textContent = "$" + gasPrice;
     document.getElementById("gasoline-mpgHighlight").textContent = mpg + " MPG";
-    document.getElementById("gasoline-totalGasCostHighlight").textContent = "$" + totalGasCost;
+    document.getElementById("gasoline-totalValue").textContent = "$" + (parseFloat(carPrice) + parseFloat(totalGasCost)).toFixed(2);
+    
+    document.getElementById("gasoline-gasoline-spend").textContent = "$" + totalGasCost;
+    document.getElementById("gasoline-total-cost").textContent = "$" + (parseFloat(carPrice) + parseFloat(totalGasCost)).toFixed(2);
 }
+
+
+function calculateGasolineCost() {
+    const years = parseFloat(document.getElementById("gasoline-years").value);
+    const milesPerYear = parseFloat(document.getElementById("gasoline-milesPerYear").value);
+    const gasPrice = parseFloat(document.getElementById("gasoline-gasPrice").value);
+    const mpg = parseFloat(document.getElementById("gasoline-mpg").value);
+    const totalMiles = years * milesPerYear;
+    const totalGallons = totalMiles / mpg;
+    return totalGallons * gasPrice;
+}
+
+window.onload = function () {
+    const inputs = document.querySelectorAll("input, select");
+    for (let input of inputs) {
+        input.addEventListener("input", function () {
+            updateStatement();
+            calculateTotal();
+        });
+    }
+    loadStaticContent();
+    updateStatement();
+    calculateTotal();
+    loadVehicleComparison();
+    updateGasolineStatement();
+    const gasolineInputs = document.querySelectorAll("#gasoline-calculator input");
+    for (let input of gasolineInputs) {
+        input.addEventListener("input", function () {
+            updateGasolineStatement();
+        });
+    }
+};
