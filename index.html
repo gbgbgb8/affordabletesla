@@ -56,41 +56,35 @@
             </form>
         </section>
         <details class="accordion">
-            <summary class="accordion-header">Gasoline Vehicle Affordability Calculator</summary>
-            <div class="accordion-content">
-                <form id="gasoline-calculator">
-                    <div class="grid">
-                        <div>
-                            <label for="gasoline-carPrice" data-tooltip="" id="tooltip-gasoline-carPrice">Base Vehicle Price:</label>
-                            <input type="number" id="gasoline-carPrice" name="gasoline-carPrice" value="21900" required />
-                            <label for="gasoline-destinationFee" data-tooltip="" id="tooltip-gasoline-destinationFee">Destination Fee:</label>
-                            <input type="number" id="gasoline-destinationFee" name="gasoline-destinationFee" value="1095" required />
-                        </div>
-                        <div>
-                            <label for="gasoline-years" data-tooltip="" id="tooltip-gasoline-years">Years:</label>
-                            <input type="number" id="gasoline-years" name="gasoline-years" value="8" required min="1" max="100" step="1" />
-                            <label for="gasoline-milesPerYear" data-tooltip="" id="tooltip-gasoline-milesPerYear">Miles/Year:</label>
-                            <input type="number" id="gasoline-milesPerYear" name="gasoline-milesPerYear" value="15000" required />
-                            <label for="gasoline-gasPrice" data-tooltip="" id="tooltip-gasoline-gasPrice">Gas/Gallon:</label>
-                            <input type="number" id="gasoline-gasPrice" name="gasoline-gasPrice" value="5.29" required />
-                            <label for="gasoline-mpg" data-tooltip="" id="tooltip-gasoline-mpg">Car MPG:</label>
-                            <input type="number" id="gasoline-mpg" name="gasoline-mpg" value="32" required />
-                        </div>
+            <summary class="accordion-header">Gasoline Vehicle Calculator</summary>
+            <form id="gasoline-calculator" class="accordion-content">
+                <div class="grid">
+                    <div>
+                        <label for="gasoline-carPrice">Base Vehicle Price:</label>
+                        <input type="number" id="gasoline-carPrice" name="gasoline-carPrice" value="21900" required />
+                        <label for="gasoline-destinationFee">Destination Fee:</label>
+                        <input type="number" id="gasoline-destinationFee" name="gasoline-destinationFee" value="1095" required />
                     </div>
-                    <div class="buttons-group">
-                        <div class="button-left">
-                            <button class="small" type="button" onclick="loadToyotaCorollaValues()">2023 Toyota Corolla</button>
-                        </div>
+                    <div>
+                        <label for="gasoline-years">Years:</label>
+                        <input type="number" id="gasoline-years" name="gasoline-years" value="8" required min="1" max="100" step="1" />
+                        <label for="gasoline-milesPerYear">Miles/Year:</label>
+                        <input type="number" id="gasoline-milesPerYear" name="gasoline-milesPerYear" value="15000" required />
+                        <label for="gasoline-gasPrice">Gas/Gallon:</label>
+                        <input type="number" id="gasoline-gasPrice" name="gasoline-gasPrice" value="5.29" required />
+                        <label for="gasoline-mpg">Gasoline Car MPG:</label>
+                        <input type="number" id="gasoline-mpg" name="gasoline-mpg" value="32" required />
                     </div>
-                </form>
-            </div>
-        </details>        
+                </div>
+                <p id="gasoline-summaryStatement">Your summary statement for gasoline car will appear here.</p>
+            </form>
+        </details>
         <details class="accordion">
             <summary class="accordion-header" id="whytesla-title">Why Your Next Car Should Be a Tesla?</summary>
             <div class="accordion-content" id="whytesla-content"></div>
         </details>
         <details class="accordion">
-            <summary class="accordion-header">Vehicle Comparison: Model X vs. Yukon Denali</summary><a href="https://x.com/HABiBtheDWEEB/status/1702400111093895233?s=20" role="button" class="small">Source</a>
+            <summary class="accordion-header">Vehicle Comparison: Model X vs. Yukon Denali</summary>
             <div class="accordion-content" id="vehicle-comparison-content"></div>
         </details>
         <details class="accordion">
@@ -103,11 +97,11 @@
         </details>
         <div class="add-referral-button">
             <a href="referrals.html" role="button" class="outline">Add your Referral Link</a>
-        </div>                
+        </div>
     </main>
     <div class="shop-button">
         <a id="referral-link" href="#" role="button" class="outline" data-tooltip="Save by using this randomly selected referral link!" data-placement="left">Shop Tesla.com</a>
-    </div>       
+    </div>
     <div class="theme-switcher">
         <fieldset>
             <label>

@@ -234,6 +234,28 @@ function loadToyotaCorollaValues() {
             console.error("Error loading Toyota Corolla values:", error);
         });
 }
+function updateGasolineStatement() {
+    const carPrice = parseFloat(document.getElementById("gasoline-carPrice").value).toFixed(2);
+    const years = document.getElementById("gasoline-years").value;
+    const milesPerYear = parseFloat(document.getElementById("gasoline-milesPerYear").value).toFixed(2);
+    const gasPrice = parseFloat(document.getElementById("gasoline-gasPrice").value).toFixed(2);
+    const mpg = parseFloat(document.getElementById("gasoline-mpg").value).toFixed(2);
+    const totalGasCost = calculateGasolineCost().toFixed(2);
+
+    const statement = `With a base vehicle price of $${carPrice}, after ${years} years of fuel expenses, considering an average of ${milesPerYear} miles per year, a gas price of $${gasPrice} per gallon, and an MPG of ${mpg}, the total cost of this gasoline vehicle is: $${parseFloat(carPrice) + parseFloat(totalGasCost)}`;
+
+    document.querySelector(".accordion-content > #gasoline-summaryStatement").textContent = statement;
+}
+
+function calculateGasolineCost() {
+    const years = parseFloat(document.getElementById("gasoline-years").value);
+    const milesPerYear = parseFloat(document.getElementById("gasoline-milesPerYear").value);
+    const gasPrice = parseFloat(document.getElementById("gasoline-gasPrice").value);
+    const mpg = parseFloat(document.getElementById("gasoline-mpg").value);
+    const totalMiles = years * milesPerYear;
+    const totalGallons = totalMiles / mpg;
+    return totalGallons * gasPrice;
+}
 
 
 window.onload = function () {
@@ -248,4 +270,5 @@ window.onload = function () {
     updateStatement();
     calculateTotal();
     loadVehicleComparison();
+    updateGasolineStatement();
 };
