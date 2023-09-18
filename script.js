@@ -5,7 +5,6 @@ function loadStaticContent() {
             document.getElementById("whytesla-title").textContent = "Why Tesla?";
             document.getElementById("whytesla-content").innerHTML = markdownit().render(data);
 
-
             return fetch('static_content.json');
         })
         .then(response => response.json())
@@ -99,7 +98,6 @@ function toggleTheme() {
     }
 }
 
-
 function exportToJSON() {
     const data = {
         carPrice: document.getElementById("carPrice").value,
@@ -123,7 +121,6 @@ function exportToJSON() {
     downloadAnchorNode.click();
     downloadAnchorNode.remove();
 }
-
 
 function importFromJSON() {
     document.getElementById('jsonInput').click();
@@ -183,17 +180,14 @@ function loadVehicleComparison() {
         .then(response => response.json())
         .then(data => {
             let comparison = data.comparison;
-
             let comparisonContent = '<table role="grid">';
             
-            // Header
             comparisonContent += '<thead><tr>';
             comparisonContent += '<th scope="col">Model X</th>';
             comparisonContent += '<th scope="col">Yukon Denali</th>';
             comparisonContent += '<th scope="col">Explanation</th>';
             comparisonContent += '</tr></thead>';
 
-            // Body
             comparisonContent += '<tbody>';
             for (let item of comparison) {
                 comparisonContent += `<tr>`;
@@ -222,8 +216,20 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 });
 
+function handleURLParameters() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const parameterNames = ["carPrice", "federalCredit", "referralCredit", "destinationFee", "years", "milesPerYear", "electricityCost", "gasPrice", "mpg"];
+    
+    for (const paramName of parameterNames) {
+        if (urlParams.has(paramName)) {
+            document.getElementById(paramName).value = urlParams.get(paramName);
+        }
+    }
 
-
+    // Update the calculator and total after importing values
+    updateStatement();
+    calculateTotal();
+}
 
 window.onload = function () {
     const inputs = document.querySelectorAll("input, select");
@@ -237,4 +243,5 @@ window.onload = function () {
     updateStatement();
     calculateTotal();
     loadVehicleComparison();
+    handleURLParameters();
 };
