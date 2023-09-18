@@ -219,6 +219,23 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 });
 
+function loadToyotaCorollaValues() {
+    fetch('toyotacorolla.json')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("gasoline-carPrice").value = data.carPrice || "";
+            document.getElementById("gasoline-destinationFee").value = data.destinationFee || "";
+            document.getElementById("gasoline-years").value = data.years || "";
+            document.getElementById("gasoline-milesPerYear").value = data.milesPerYear || "";
+            document.getElementById("gasoline-gasPrice").value = data.gasPrice || "";
+            document.getElementById("gasoline-mpg").value = data.mpg || "";
+        })
+        .catch(error => {
+            console.error("Error loading Toyota Corolla values:", error);
+        });
+}
+
+
 window.onload = function () {
     const inputs = document.querySelectorAll("input, select");
     for (let input of inputs) {
