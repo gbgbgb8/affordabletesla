@@ -242,10 +242,15 @@ function updateGasolineStatement() {
     const mpg = parseFloat(document.getElementById("gasoline-mpg").value).toFixed(2);
     const totalGasCost = calculateGasolineCost().toFixed(2);
 
-    const statement = `With a base vehicle price of $${carPrice}, after ${years} years of fuel expenses, considering an average of ${milesPerYear} miles per year, a gas price of $${gasPrice} per gallon, and an MPG of ${mpg}, the total cost of this gasoline vehicle is: $${parseFloat(carPrice) + parseFloat(totalGasCost)}`;
-
-    document.querySelector(".accordion-content > #gasoline-summaryStatement").textContent = statement;
+    // Set the values in the HTML
+    document.getElementById("gasoline-basePriceHighlight").textContent = "$" + carPrice;
+    document.getElementById("gasoline-yearsHighlight").textContent = years;
+    document.getElementById("gasoline-milesYearHighlight").textContent = milesPerYear + " miles";
+    document.getElementById("gasoline-gasPriceHighlight").textContent = "$" + gasPrice;
+    document.getElementById("gasoline-mpgHighlight").textContent = mpg + " MPG";
+    document.getElementById("gasoline-totalValue").textContent = "$" + (parseFloat(carPrice) + parseFloat(totalGasCost)).toFixed(2);
 }
+
 
 function calculateGasolineCost() {
     const years = parseFloat(document.getElementById("gasoline-years").value);
@@ -271,4 +276,11 @@ window.onload = function () {
     calculateTotal();
     loadVehicleComparison();
     updateGasolineStatement();
+
+    const gasolineInputs = document.querySelectorAll("#gasoline-calculator input");
+    for (let input of gasolineInputs) {
+        input.addEventListener("input", function () {
+            updateGasolineStatement();
+        });
+    }
 };
